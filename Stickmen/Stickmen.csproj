@@ -81,7 +81,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ButtonSelector.cs" />
     <Compile Include="Assets\OutlineEffect\Demo\MaterialSwitcher.cs" />
     <Compile Include="Assets\OutlineEffect\Demo\OutlineAnimation.cs" />
     <Compile Include="Assets\OutlineEffect\Demo\Rotate.cs" />
@@ -91,6 +90,19 @@
     <Compile Include="Assets\OutlineEffect\OutlineEffect.cs" />
     <Compile Include="Assets\PinwheelFantasyEffectFreePack2\Scripts\Fireball.cs" />
     <Compile Include="Assets\PinwheelFantasyEffectFreePack2\Scripts\Spawn.cs" />
+    <Compile Include="Assets\PowerManager.cs" />
+    <Compile Include="Assets\RandomIconsManager.cs" />
+    <Compile Include="Assets\RandomPowerGenerator.cs" />
+    <Compile Include="Assets\RandomPowerIcon.cs" />
+    <Compile Include="Assets\ScreenChangerButton.cs" />
+    <Compile Include="Assets\Scripts\ButtonSelector.cs" />
+    <Compile Include="Assets\Scripts\LightSwitch.cs" />
+    <Compile Include="Assets\Scripts\Menus\MenuManager.cs" />
+    <Compile Include="Assets\Scripts\Power.cs" />
+    <Compile Include="Assets\Scripts\StatDiagram.cs" />
+    <Compile Include="Assets\Scripts\StickmanProfile.cs" />
+    <Compile Include="Assets\Scripts\Triangulator.cs" />
+    <Compile Include="Assets\SmoothFollower.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples\Scripts\Benchmark02.cs" />
@@ -123,6 +135,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\Timer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Aesthetics\Fonts\prototype\Prototype.txt" />
