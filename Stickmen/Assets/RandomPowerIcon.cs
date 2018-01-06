@@ -8,6 +8,7 @@ public class RandomPowerIcon : MonoBehaviour {
     public float timeToWait = 3f;
     public float flashTime = 0.1f;
     public Power finalPower;
+    public float width;
 
     private bool isChanging = false;
     public GameObject icon;
@@ -18,6 +19,7 @@ public class RandomPowerIcon : MonoBehaviour {
     void Start () {
         StartCoroutine(StartTimer(timeToWait));
         icon = Instantiate(PowerManager.instance.allPowers[index].icon, this.transform);
+        width = this.transform.localScale.x;
 	}
 	
 	// Update is called once per frame

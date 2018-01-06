@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class StatDiagram : MonoBehaviour {
 
@@ -8,14 +9,16 @@ public class StatDiagram : MonoBehaviour {
 
     public Material backMat;
     public Material frontMat;
+    public float updateSpeed = 2f;
 
     private bool isChanging = false;
     private float[] currentStats;
     private float[] goalStats;
     private MeshFilter filter;
 
-    // Use this for initialization
-    void Start () {
+
+    public void Init () {
+        profile = new StickmanProfile();
 
         currentStats = new float[]{
             profile.strength,
@@ -37,11 +40,11 @@ public class StatDiagram : MonoBehaviour {
 
         // Create Vector2 vertices
         Vector2[] vertices2D = new Vector2[] {
-            new Vector2(0, profile.strength),
-            new Vector2(profile.dexterity * Mathf.Sin(2 * Mathf.PI / 5f), profile.dexterity * Mathf.Cos( 2 * Mathf.PI / 5f)),
-            new Vector2(profile.resilience * Mathf.Sin(4 * Mathf.PI / 5f), profile.resilience * Mathf.Cos(4 * Mathf.PI / 5f)),
-            new Vector2(profile.endurance * Mathf.Sin(6 * Mathf.PI / 5f), profile.endurance * Mathf.Cos(6 * Mathf.PI / 5f)),
-            new Vector2(profile.expertise * Mathf.Sin(8 * Mathf.PI / 5f), profile.expertise * Mathf.Cos(8 * Mathf.PI / 5f))
+            new Vector2(0, profile.strength + 1),
+            new Vector2((profile.dexterity + 1) * Mathf.Sin(2 * Mathf.PI / 5f), (profile.dexterity + 1) * Mathf.Cos( 2 * Mathf.PI / 5f)),
+            new Vector2((profile.resilience + 1) * Mathf.Sin(4 * Mathf.PI / 5f), (profile.resilience + 1) * Mathf.Cos(4 * Mathf.PI / 5f)),
+            new Vector2((profile.endurance + 1) * Mathf.Sin(6 * Mathf.PI / 5f), (profile.endurance + 1) * Mathf.Cos(6 * Mathf.PI / 5f)),
+            new Vector2((profile.expertise + 1) * Mathf.Sin(8 * Mathf.PI / 5f), (profile.expertise + 1) * Mathf.Cos(8 * Mathf.PI / 5f))
         };
 
         // Use the triangulator to get indices for creating triangles
@@ -69,11 +72,11 @@ public class StatDiagram : MonoBehaviour {
 
         GetComponent<MeshRenderer>().material = frontMat;
 
-        ChangeStat(0, 2);
-        ChangeStat(1, 3);
-        ChangeStat(2, 7);
-        ChangeStat(3, 4);
-        ChangeStat(4, 6);
+        TextMeshPro[] texts = GetComponentsInChildren<TextMeshPro>();
+        foreach(TextMeshPro text in texts)
+        {
+            text.GetComponent<MeshRenderer>().enabled = true;
+        }
     }
 	
 	// Update is called once per frame
@@ -110,13 +113,13 @@ public class StatDiagram : MonoBehaviour {
     {
         if (currentStats[index] > goalStats[index])
         {
-            currentStats[index] -= Time.deltaTime;
+            currentStats[index] -= Time.deltaTime * updateSpeed;
             if (currentStats[index] < goalStats[index])
                 currentStats[index] = goalStats[index];
         }
         else if (currentStats[index] < goalStats[index])
         {
-            currentStats[index] += Time.deltaTime;
+            currentStats[index] += Time.deltaTime * updateSpeed;
             if (currentStats[index] > goalStats[index])
                 currentStats[index] = goalStats[index];
         }
@@ -126,11 +129,11 @@ public class StatDiagram : MonoBehaviour {
     {
         // Create Vector2 vertices
         Vector2[] vertices2D = new Vector2[] {
-            new Vector2(0, currentStats[0]),
-            new Vector2(currentStats[1] * Mathf.Sin(2 * Mathf.PI / 5f), currentStats[1] * Mathf.Cos( 2 * Mathf.PI / 5f)),
-            new Vector2(currentStats[2] * Mathf.Sin(4 * Mathf.PI / 5f), currentStats[2] * Mathf.Cos(4 * Mathf.PI / 5f)),
-            new Vector2(currentStats[3] * Mathf.Sin(6 * Mathf.PI / 5f), currentStats[3] * Mathf.Cos(6 * Mathf.PI / 5f)),
-            new Vector2(currentStats[4] * Mathf.Sin(8 * Mathf.PI / 5f), currentStats[4] * Mathf.Cos(8 * Mathf.PI / 5f))
+            new Vector2(0, (currentStats[0] + 1)),
+            new Vector2((currentStats[1] + 1) * Mathf.Sin(2 * Mathf.PI / 5f), (currentStats[1] + 1) * Mathf.Cos( 2 * Mathf.PI / 5f)),
+            new Vector2((currentStats[2] + 1) * Mathf.Sin(4 * Mathf.PI / 5f), (currentStats[2] + 1) * Mathf.Cos(4 * Mathf.PI / 5f)),
+            new Vector2((currentStats[3] + 1) * Mathf.Sin(6 * Mathf.PI / 5f), (currentStats[3] + 1) * Mathf.Cos(6 * Mathf.PI / 5f)),
+            new Vector2((currentStats[4] + 1) * Mathf.Sin(8 * Mathf.PI / 5f), (currentStats[4] + 1) * Mathf.Cos(8 * Mathf.PI / 5f))
         };
 
         // Use the triangulator to get indices for creating triangles
@@ -158,5 +161,16 @@ public class StatDiagram : MonoBehaviour {
     {
         isChanging = true;
         goalStats[index] = value;
+    }
+
+    public void UpdateToProfile(StickmanProfile newProfile)
+    {
+        profile = newProfile;
+        goalStats[0] = profile.strength;
+        goalStats[1] = profile.dexterity;
+        goalStats[2] = profile.resilience;
+        goalStats[3] = profile.expertise;
+        goalStats[4] = profile.endurance;
+        isChanging = true;
     }
 }

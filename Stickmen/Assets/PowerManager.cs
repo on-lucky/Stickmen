@@ -16,4 +16,28 @@ public class PowerManager : MonoBehaviour {
         }
         PowerManager.instance = this;
     }
+
+    public int FindIndex(string powerName)
+    {
+        int foundIndex = 0;
+        for(int i = 0; i < allPowers.Length; i++)
+        {
+            if (allPowers[i].name == powerName)
+            {
+                foundIndex = i;
+                break;
+            }
+        }
+        return foundIndex;
+    }
+    
+    public List<Power> getPowerList(int[] indexes)
+    {
+        List<Power> powerList = new List<Power>();
+        foreach(int index in indexes)
+        {
+            powerList.Add(allPowers[index]);
+        }
+        return powerList;
+    }
 }

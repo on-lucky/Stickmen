@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Menus/RandomPowerSelector.unity
+- path: Assets/Scenes/Menus/Random Fight lobby.unity
   isLoaded: 1
   isActive: 1

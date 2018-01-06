@@ -12,6 +12,7 @@ public class LightSwitch : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         LightDOWN();
+        ResetIntensity();
 	}
 	
 	// Update is called once per frame
@@ -63,6 +64,17 @@ public class LightSwitch : MonoBehaviour {
             {
                 light.intensity -= (Time.deltaTime * intensity * FLASHSPEED);
             }
+        }
+    }
+
+    /// <summary>
+    /// Resets the intensity value of each lights to the value of the lightswitch intensity
+    /// </summary>
+    private void ResetIntensity()
+    {
+        foreach (Light light in lights)
+        {
+            light.intensity = intensity;
         }
     }
 }

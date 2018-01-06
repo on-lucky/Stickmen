@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class RandomPowerGenerator : MonoBehaviour {
+public class RandomPowerGenerator : NetworkBehaviour {
+
+    public static RandomPowerGenerator instance;
 
     public List<Power> Player1Powers;
     public List<Power> Player2Powers;
@@ -12,31 +15,38 @@ public class RandomPowerGenerator : MonoBehaviour {
     public int maxPowerNumber = 4;
     public int totalPoints = 6;
 
-    // Use this for initialization
-    void Start () {
-
-        for(int i = 0; i < 10000; i++)
+    private void Awake()
+    {
+        if (RandomPowerGenerator.instance != null)
         {
-            testTable[i] = new List<Power>();
-            GeneratePowers(totalPoints, testTable[i]);
+            Debug.LogError("More than one RandomPowerGenerator in the scene!");
         }
-        CountPowers();
-
-        GeneratePowers(totalPoints, Player1Powers);
-        GeneratePowers(totalPoints, Player2Powers);
-        RandomIconsManager.instance.SpawnRandomIcons(Player1Powers, Player2Powers);
+        RandomPowerGenerator.instance = this;
     }
 
-    private void GeneratePowers(int totalPoints, List<Power> powerList)
+    public void StartGeneration()
+    {
+        Debug.Log("starting generation");
+        if (isServer)
+        {
+            Debug.Log("i am the server");
+            int[] indexes1 = GeneratePowers(totalPoints, Player1Powers);
+            int[] indexes2 = GeneratePowers(totalPoints, Player2Powers);
+            NetworkMessenger.instance.SendPowerListMessage(indexes1, indexes2);
+        }
+    }
+
+    private int[] GeneratePowers(int totalPoints, List<Power> powerList)
     {
         int remainingPoints = totalPoints;
 
-        while(remainingPoints > 0)
+        while (remainingPoints > 0)
         {
             Power chosenPower = GeneratePower(remainingPoints, powerList);
             powerList.Add(chosenPower);
             remainingPoints -= chosenPower.cost;
         }
+        return GenerateIndexList(powerList);
     }
 
     private Power GeneratePower(int maxCost, List<Power> powerList)
@@ -70,6 +80,17 @@ public class RandomPowerGenerator : MonoBehaviour {
         }
        
         return PowerManager.instance.allPowers[index];
+    }
+
+    private int[] GenerateIndexList(List<Power> powerList)
+    {
+        int[] indexes = new int[powerList.Count];
+        int i = 0;
+        foreach(Power power in powerList)
+        {
+            indexes[i++] = PowerManager.instance.FindIndex(power.name);
+        }
+        return indexes;
     }
 
     private void CountPowers()
