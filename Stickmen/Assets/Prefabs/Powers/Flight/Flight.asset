@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 956672ba37e1fee4291c625e6a564a6a, type: 3}
+  m_Name: Flight
+  m_EditorClassIdentifier: 
+  name: Flight
+  icon: {fileID: 1139682007867870, guid: ee596d2ca6539474486e600707c534b9, type: 2}
+  cost: 1
+  moveList: []

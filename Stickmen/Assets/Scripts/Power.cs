@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Power {
+[CreateAssetMenu(fileName = "new power", menuName = "power")]
+public class Power: ScriptableObject{
 
-    public string name;
+    public new string name;
     public GameObject icon;
     public int cost;
+
+    public List<Move> moveList;
 }

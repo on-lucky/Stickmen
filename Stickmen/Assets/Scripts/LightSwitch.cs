@@ -6,8 +6,11 @@ public class LightSwitch : MonoBehaviour {
 
     public Light[] lights;                  // List of lignts affected by the LightSwitch 
     public float intensity = 1;             // Base intensity of the lights
+    public float goalIntensity =1;          // goal intensity after the flash
+    public float flashSpeed = 5;            // Speed of the flash
+    public float flashIntensity = 3;        // Intensity multiplier during the flash
 
-    private const float FLASHSPEED = 5;     // Speed of the flash
+    private bool isflashing = false;        // If the lights are flashing
 
 	// Use this for initialization
 	void Start () {
@@ -49,8 +52,9 @@ public class LightSwitch : MonoBehaviour {
     {
         foreach (Light light in lights)
         {
-            light.intensity = intensity * 3;
+            light.intensity = intensity * flashIntensity;
         }
+        isflashing = true;
     }
 
     /// <summary>
@@ -58,11 +62,18 @@ public class LightSwitch : MonoBehaviour {
     /// </summary>
     private void UpdateIntensity()
     {
-        foreach (Light light in lights)
+        if (isflashing)
         {
-            if (light.intensity > intensity)
+            foreach (Light light in lights)
             {
-                light.intensity -= (Time.deltaTime * intensity * FLASHSPEED);
+                if (light.intensity > goalIntensity)
+                {
+                    light.intensity -= (Time.deltaTime * intensity * flashSpeed);
+                }
+                else
+                {
+                    isflashing = false;
+                }
             }
         }
     }

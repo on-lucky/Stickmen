@@ -14,3 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menus/RandomPowerSelector.unity
     guid: 4edbe1c84e75d3943a88426cde9dd63e
+  - enabled: 1
+    path: Assets/Scenes/InGame/Fight Arena Template.unity
+    guid: 5ff963effec4e1241979d3e903ec079d

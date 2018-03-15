@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class StickmanProfile {
 
-    private Power[] pvowers;
+    public List<Power> powers;
 
     // stats
 
