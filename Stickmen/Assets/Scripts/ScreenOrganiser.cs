@@ -54,11 +54,11 @@ public class ScreenOrganiser : MonoBehaviour {
     {
         if (isMyplayer)
         {
-            player.transform.position = CharacterFrames[0].transform.position;
+            player.transform.position = CharacterFrames[0].transform.position - new Vector3(0, 0, 1);
             //player.transform.parent = CharacterFrames[0].transform;
         }
         else{
-            player.transform.position = CharacterFrames[1].transform.position;
+            player.transform.position = CharacterFrames[1].transform.position - new Vector3(0, 0, 1);
             //player.transform.parent = CharacterFrames[1].transform;
         }
     }
@@ -106,7 +106,7 @@ public class ScreenOrganiser : MonoBehaviour {
         CharacterFrames[0].transform.position = new Vector3(posxFrame1, posyFrame1, CharacterFrames[0].transform.position.z);
         if (players.Count > 0)
         {
-            players[0].transform.position = new Vector3(posxFrame1, posyFrame1, CharacterFrames[0].transform.position.z);
+            players[0].transform.position = new Vector3(posxFrame1, posyFrame1, CharacterFrames[0].transform.position.z - 1);
         }
 
         Vector3 posCornerRight = cam.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0));
@@ -115,7 +115,7 @@ public class ScreenOrganiser : MonoBehaviour {
         CharacterFrames[1].transform.position = new Vector3(posxFrame2, posyFrame2, CharacterFrames[1].transform.position.z);
         if (players.Count > 1)
         {
-            players[1].transform.position = new Vector3(posxFrame2, posyFrame2, CharacterFrames[1].transform.position.z);
+            players[1].transform.position = new Vector3(posxFrame2, posyFrame2, CharacterFrames[1].transform.position.z - 1);
         }
     }
 

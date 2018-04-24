@@ -33,5 +33,7 @@ public class NetworkPlayer : MonoBehaviour {
         GetComponentInChildren<IconSpawner>().SpawnIcons(moveList);
 
         transform.position = new Vector3(-1, 0, 0);
+
+        GetComponent<Rigidbody>().useGravity = true;
     }
 }
