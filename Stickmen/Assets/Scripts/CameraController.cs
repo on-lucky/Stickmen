@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour {
 
     public Camera UIcam;
     public Camera MenuCam;
+
+    public List<Camera> Adjustable_cameras;
     public bool mouseHold = false;
 
     public float cameraLimitMin = 0;
@@ -155,4 +157,12 @@ public class CameraController : MonoBehaviour {
             mainCam.transform.position = new Vector3(mainCam.transform.position.x, mainCam.transform.position.y, cameraLimitMax);
         }
     }
+
+    public void SetCamRect(Rect rect) {
+        foreach(Camera cam in Adjustable_cameras)
+        {
+            cam.rect = rect;
+        }
+    }
+        
 }

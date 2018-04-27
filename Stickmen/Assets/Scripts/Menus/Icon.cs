@@ -33,7 +33,12 @@ public class Icon : MonoBehaviour{
         RemoveText();       
     }
 
-    protected virtual void OnMouseDown()
+    private void Update()
+    {
+        _text.fontSize = Mathf.Abs(Camera.main.transform.position.z) * 4;
+    }
+
+    protected virtual void OnMouseUp()
     {
         if(_childIcons.Count > 0)
         {
@@ -50,6 +55,11 @@ public class Icon : MonoBehaviour{
                 ShadeBrothers(false);
                 _pressed = false;
             }
+        }
+        else
+        {
+            //execute the chosen move
+            GameManager.instance.local_stickman.SetUpMove(_iconName);
         }
     }
 

@@ -18,6 +18,8 @@ public class StickmanProfile {
     public int expertise; // Mana regen and total mana 
     public int endurance; // Stamina regen and total stamina
 
+    private List<Move> _moveList;
+
     public StickmanProfile()
     {
         strength = startingStat;
@@ -25,6 +27,25 @@ public class StickmanProfile {
         resilience = startingStat;
         expertise = startingStat;
         endurance = startingStat;
+
+        _moveList = new List<Move>();
+    }
+
+    public void SetMoveList(List<Move> moves)
+    {
+        _moveList = moves;
+    }
+
+    public Move FindMove(string move_name)
+    {
+        foreach(Move move in _moveList)
+        {
+            if(move.name == move_name)
+            {
+                return move;
+            }
+        }
+        return null;
     }
 
     public bool IncrementStat(string affectedStat)
