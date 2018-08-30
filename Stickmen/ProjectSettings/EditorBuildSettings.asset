@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menus/Random Fight lobby.unity
+    guid: c828e47ae42180944a087c7eb0e93af3
+  - enabled: 1
+    path: Assets/Scenes/Menus/Home Screen.unity
+    guid: 50ff4105e0d71c047a71fa186cf87829
+  - enabled: 1
+    path: Assets/Scenes/Menus/RandomPowerSelector.unity
+    guid: 4edbe1c84e75d3943a88426cde9dd63e
+  - enabled: 1
+    path: Assets/Scenes/InGame/Fight Arena Template.unity
+    guid: 5ff963effec4e1241979d3e903ec079d
