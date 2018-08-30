@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 956672ba37e1fee4291c625e6a564a6a, type: 3}
+  m_Name: Fire
+  m_EditorClassIdentifier: 
+  name: Fire
+  icon: {fileID: 1082053175708528, guid: c4c04ba1a14c26a4ebd0f65cc22c33ca, type: 2}
+  cost: 2
+  moveList: []
