@@ -331,6 +331,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Aesthetics\Fonts\prototype\Prototype.txt" />
+    <None Include="Assets\LightShafts-master\ColorFilter.shader" />
+    <None Include="Assets\LightShafts-master\Coord.shader" />
+    <None Include="Assets\LightShafts-master\Depth.shader" />
+    <None Include="Assets\LightShafts-master\DepthBreaks.shader" />
+    <None Include="Assets\LightShafts-master\FinalInterpolation.shader" />
+    <None Include="Assets\LightShafts-master\InterpolateAlongRays.shader" />
+    <None Include="Assets\LightShafts-master\Raymarch.shader" />
+    <None Include="Assets\LightShafts-master\SamplePositions.shader" />
+    <None Include="Assets\LightShafts-master\Shared.cginc" />
     <None Include="Assets\OutlineEffect\Resources\OutlineBufferShader.shader" />
     <None Include="Assets\OutlineEffect\Resources\OutlineShader.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
@@ -377,6 +386,20 @@
     <None Include="Assets\Scripts\Shaders\ButtonShader.shader" />
     <None Include="Assets\Scripts\Shaders\LoadingBarShader.shader" />
     <None Include="Assets\Scripts\Shaders\stencilShader.shader" />
+    <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Readme.txt" />
+    <None Include="Assets\Standard Assets\Effects\Projectors\Guidelines.txt" />
+    <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorLight.shader" />
+    <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorMultiply.shader" />
+    <None Include="Assets\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularDisplacement.shader" />
+    <None Include="Assets\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularSmooth.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\Anton OFL.txt" />
     <None Include="Assets\TextMesh Pro\Fonts\Bangers - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />

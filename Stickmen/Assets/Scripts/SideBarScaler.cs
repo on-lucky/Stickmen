@@ -66,8 +66,9 @@ public class SideBarScaler : MonoBehaviour {
 
         _slider.SetCurrentPos(0);
 
-        Camera.main.rect = new Rect(0, 0, (1 - currentPortion), 1);
-        CameraController.instance.MenuCam.rect = new Rect(0, 0, (1 - currentPortion), 1);
+        //Camera.main.rect = new Rect(0, 0, (1 - currentPortion), 1);
+        //CameraController.instance.MenuCam.rect = new Rect(0, 0, (1 - currentPortion), 1);
+        CameraController.instance.SetCamRect(new Rect(0, 0, (1 - currentPortion), 1));
     }
 
 	public void ScaleSideBar()
@@ -121,8 +122,10 @@ public class SideBarScaler : MonoBehaviour {
                 currentPortion = 0;
             }
 
-            Camera.main.rect = new Rect(0, 0, (1 - currentPortion), 1);
-            CameraController.instance.MenuCam.rect = new Rect(0, 0, (1 - currentPortion), 1);
+            //Camera.main.rect = new Rect(0, 0, (1 - currentPortion), 1);
+            //CameraController.instance.MenuCam.rect = new Rect(0, 0, (1 - currentPortion), 1);
+
+            CameraController.instance.SetCamRect(new Rect(0, 0, (1 - currentPortion), 1));
         }
     }
 

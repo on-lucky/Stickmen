@@ -114,11 +114,27 @@
         <para>A Timeline track used for playing back animations on an Animator.</para>
       </summary>
     </member>
+<<<<<<< HEAD
+=======
+    <member name="P:UnityEngine.Timeline.AnimationTrack.applyAvatarMask">
+      <summary>
+        <para>Specifies whether to apply the AvatarMask to the track.</para>
+      </summary>
+    </member>
+>>>>>>> 590d001db3e279e63a662ad52a8bcaeb035f046f
     <member name="P:UnityEngine.Timeline.AnimationTrack.applyOffsets">
       <summary>
         <para>Specifies whether to apply track root motion offsets to all clips on the track.</para>
       </summary>
     </member>
+<<<<<<< HEAD
+=======
+    <member name="P:UnityEngine.Timeline.AnimationTrack.avatarMask">
+      <summary>
+        <para>Specifies an AvatarMask to be applied.</para>
+      </summary>
+    </member>
+>>>>>>> 590d001db3e279e63a662ad52a8bcaeb035f046f
     <member name="P:UnityEngine.Timeline.AnimationTrack.inClipMode">
       <summary>
         <para>Specifies whether the Animation Track has clips, or is in infinite mode.</para>
@@ -420,6 +436,7 @@
         <para>A PlayableTrack is a track whose clips are custom playables.</para>
       </summary>
     </member>
+<<<<<<< HEAD
     <member name="M:UnityEngine.Timeline.PlayableTrack.CreateClip">
       <summary>
         <para>Creates a clip on the track with a custom playable asset attached, whose type is specified by T.</para>
@@ -428,6 +445,8 @@
         <para>A TimelineClip whose asset is of type T.</para>
       </returns>
     </member>
+=======
+>>>>>>> 590d001db3e279e63a662ad52a8bcaeb035f046f
     <member name="T:UnityEngine.Timeline.PrefabControlPlayable">
       <summary>
         <para>Playable that controls and instantiates a Prefab.</para>
@@ -598,9 +617,15 @@
         <para>Is the clip being extrapolated before it's start time?</para>
       </summary>
     </member>
+<<<<<<< HEAD
     <member name="P:UnityEngine.Timeline.TimelineClip.locked">
       <summary>
         <para>Is the clip locked for editing?</para>
+=======
+    <member name="P:UnityEngine.Timeline.TimelineClip.parentTrack">
+      <summary>
+        <para>Returns the parent track where this clip is attached.</para>
+>>>>>>> 590d001db3e279e63a662ad52a8bcaeb035f046f
       </summary>
     </member>
     <member name="P:UnityEngine.Timeline.TimelineClip.postExtrapolationMode">
@@ -706,6 +731,17 @@
         <para>The TimelineAsset this track belongs to.</para>
       </summary>
     </member>
+<<<<<<< HEAD
+=======
+    <member name="M:UnityEngine.Timeline.TrackAsset.CreateClip">
+      <summary>
+        <para>Creates a clip on the track with a custom playable asset attached, whose type is specified by T. Throws an InvalidOperationException if the specified type is not supported by the track.</para>
+      </summary>
+      <returns>
+        <para>A TimelineClip whose asset is of type T.</para>
+      </returns>
+    </member>
+>>>>>>> 590d001db3e279e63a662ad52a8bcaeb035f046f
     <member name="M:UnityEngine.Timeline.TrackAsset.CreateDefaultClip">
       <summary>
         <para>Creates a default clip for this track, where the clip's asset type is based on any  TrackClipTypeAttributes marking the track.</para>

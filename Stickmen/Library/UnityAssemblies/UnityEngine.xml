@@ -4,6 +4,7 @@
     <assembly>
       <name>UnityEngine</name>
     </assembly>
+<<<<<<< HEAD
     <member name="T:UnityEngine.AccelerationEvent">
       <summary>
         <para>Structure describing acceleration status of the device.</para>
@@ -60335,5 +60336,7 @@ Setting this to true will disable seeking (with .time and/or .timeSamples) on th
         <para>Base class for all yield instructions.</para>
       </summary>
     </member>
+=======
+>>>>>>> 590d001db3e279e63a662ad52a8bcaeb035f046f
   </members>
 </doc>

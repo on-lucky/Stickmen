@@ -6,7 +6,7 @@ public class CategoryIcon : Icon {
 
     public List<Icon> childIcons;
 
-    protected override void OnMouseDown()
+    protected override void OnMouseUp()
     {
         foreach (var icon in childIcons)
         {

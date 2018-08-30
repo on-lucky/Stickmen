@@ -314,6 +314,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\LightShafts-master\LightShafts.cs" />
+    <Compile Include="Assets\LightShafts-master\LightShafts.Resources.cs" />
+    <Compile Include="Assets\LightShafts-master\LightShafts.Utils.cs" />
     <Compile Include="Assets\OutlineEffect\Demo\MaterialSwitcher.cs" />
     <Compile Include="Assets\OutlineEffect\Demo\OutlineAnimation.cs" />
     <Compile Include="Assets\OutlineEffect\Demo\Rotate.cs" />
@@ -321,6 +324,8 @@
     <Compile Include="Assets\OutlineEffect\LinkedSet.cs" />
     <Compile Include="Assets\OutlineEffect\Outline.cs" />
     <Compile Include="Assets\OutlineEffect\OutlineEffect.cs" />
+    <Compile Include="Assets\Phantom.cs" />
+    <Compile Include="Assets\PhantomSpawner.cs" />
     <Compile Include="Assets\PinwheelFantasyEffectFreePack2\Scripts\Fireball.cs" />
     <Compile Include="Assets\PinwheelFantasyEffectFreePack2\Scripts\Spawn.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
@@ -368,11 +373,13 @@
     <Compile Include="Assets\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
+    <Compile Include="Assets\Scripts\AnimationEventHandler.cs" />
     <Compile Include="Assets\Scripts\BuildConsole.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\ConnexionManager.cs" />
     <Compile Include="Assets\Scripts\ExchangeFeedback.cs" />
     <Compile Include="Assets\Scripts\ExplodingProjectile.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\LightSwitch.cs" />
     <Compile Include="Assets\Scripts\MenuElement.cs" />
     <Compile Include="Assets\Scripts\Menus\Billboard.cs" />
@@ -385,9 +392,14 @@
     <Compile Include="Assets\Scripts\Menus\IconSpawner.cs" />
     <Compile Include="Assets\Scripts\Menus\MenuManager.cs" />
     <Compile Include="Assets\Scripts\Menus\ScreenChangerButton.cs" />
-    <Compile Include="Assets\Scripts\Move.cs" />
+    <Compile Include="Assets\Scripts\MouseFollower.cs" />
+    <Compile Include="Assets\Scripts\Moves\Move.cs" />
+    <Compile Include="Assets\Scripts\Moves\PureMovementMove.cs" />
     <Compile Include="Assets\Scripts\NetworkMessenger.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayer.cs" />
+    <Compile Include="Assets\Scripts\OrientationManager.cs" />
+    <Compile Include="Assets\Scripts\Platform.cs" />
+    <Compile Include="Assets\Scripts\PlatformManager.cs" />
     <Compile Include="Assets\Scripts\PotentialBar.cs" />
     <Compile Include="Assets\Scripts\PotentialManager.cs" />
     <Compile Include="Assets\Scripts\PotentialSpender.cs" />
@@ -401,6 +413,7 @@
     <Compile Include="Assets\Scripts\RandomPowerIcon.cs" />
     <Compile Include="Assets\Scripts\SceneChangerButton.cs" />
     <Compile Include="Assets\Scripts\ScreenOrganiser.cs" />
+    <Compile Include="Assets\Scripts\Shade.cs" />
     <Compile Include="Assets\Scripts\SideBarScaler.cs" />
     <Compile Include="Assets\Scripts\SlideButton.cs" />
     <Compile Include="Assets\Scripts\Slider.cs" />
@@ -408,7 +421,9 @@
     <Compile Include="Assets\Scripts\StatBar.cs" />
     <Compile Include="Assets\Scripts\StatButton.cs" />
     <Compile Include="Assets\Scripts\StatDiagram.cs" />
+    <Compile Include="Assets\Scripts\StickmanAnimator.cs" />
     <Compile Include="Assets\Scripts\StickmanProfile.cs" />
+    <Compile Include="Assets\Scripts\StickmanRunner.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\Triangulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples\Scripts\Benchmark01.cs" />
@@ -446,6 +461,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Aesthetics\Fonts\prototype\Prototype.txt" />
+    <None Include="Assets\LightShafts-master\ColorFilter.shader" />
+    <None Include="Assets\LightShafts-master\Coord.shader" />
+    <None Include="Assets\LightShafts-master\Depth.shader" />
+    <None Include="Assets\LightShafts-master\DepthBreaks.shader" />
+    <None Include="Assets\LightShafts-master\FinalInterpolation.shader" />
+    <None Include="Assets\LightShafts-master\InterpolateAlongRays.shader" />
+    <None Include="Assets\LightShafts-master\Raymarch.shader" />
+    <None Include="Assets\LightShafts-master\SamplePositions.shader" />
+    <None Include="Assets\LightShafts-master\Shared.cginc" />
     <None Include="Assets\OutlineEffect\Resources\OutlineBufferShader.shader" />
     <None Include="Assets\OutlineEffect\Resources\OutlineShader.shader" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
@@ -492,6 +516,20 @@
     <None Include="Assets\Scripts\Shaders\ButtonShader.shader" />
     <None Include="Assets\Scripts\Shaders\LoadingBarShader.shader" />
     <None Include="Assets\Scripts\Shaders\stencilShader.shader" />
+    <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Readme.txt" />
+    <None Include="Assets\Standard Assets\Effects\Projectors\Guidelines.txt" />
+    <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorLight.shader" />
+    <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorMultiply.shader" />
+    <None Include="Assets\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularDisplacement.shader" />
+    <None Include="Assets\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularSmooth.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\Anton OFL.txt" />
     <None Include="Assets\TextMesh Pro\Fonts\Bangers - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />

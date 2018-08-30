@@ -8,6 +8,25 @@ public class IconSpawner : MonoBehaviour {
     public List<Move> _moveList;        //Complete Move list to spawn TODO:remove "_" on public attribute
     public float menuScale = 0.5f;      //Scale of the Move menu
 
+    private GameObject root_icon;
+
+    public void ShowIcons(bool should_show)
+    {
+        root_icon.SetActive(should_show);
+    }
+
+    public void ToggleIcons()
+    {
+        if (root_icon.activeSelf)
+        {
+            root_icon.SetActive(false);
+        }
+        else
+        {
+            root_icon.SetActive(true);
+        }
+    }
+
     /// <summary>
     /// Spawn the complete Move menu
     /// </summary>
@@ -17,15 +36,16 @@ public class IconSpawner : MonoBehaviour {
         _moveList = moveList;
         List<Move> roots = GetRoots();
 
-        GameObject icon = Instantiate(_iconTemplate, this.transform);
+        root_icon = Instantiate(_iconTemplate, this.transform);
+        root_icon.transform.position += new Vector3(0,2,0);
 
         for (int i = 0; i < roots.Count; i++)
         {
-            SpawnTreeRecursively(roots[i], icon, i);
+            SpawnTreeRecursively(roots[i], root_icon, i);
         }
 
-        icon.transform.localScale = new Vector3(menuScale, menuScale, 1);
-        icon.transform.Translate(new Vector3(1, 0, 0));
+        root_icon.transform.localScale = new Vector3(menuScale, menuScale, 1);
+        root_icon.transform.Translate(new Vector3(1, 0, 0));
     }
 
     /// <summary>
