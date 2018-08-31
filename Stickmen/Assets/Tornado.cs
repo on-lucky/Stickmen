@@ -8,6 +8,7 @@ public class Tornado : MonoBehaviour {
     public Vector3 translationSpeed = new Vector3(1f, 0, 0);
     public float spawningTime = 1f;
     public GameObject fireTrail;
+    public GameObject baseParticles;
 
     private float currentTime;
 
@@ -17,7 +18,7 @@ public class Tornado : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         currentTime += Time.deltaTime;
 
         if(currentTime > spawningTime)
@@ -41,6 +42,7 @@ public class Tornado : MonoBehaviour {
     private void Rotate()
     {
         transform.Rotate(0, rotationSpeed, 0);
+        baseParticles.transform.Rotate(0, -rotationSpeed, 0);
     }
 
     private void Move()

@@ -219,14 +219,16 @@ ModelImporter:
       - time: 0
         functionName: FootStep
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 1684098406989342, guid: cf21442f628baa142b40c557e267e0d0,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.537037
         functionName: FootStep
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 1684098406989342, guid: cf21442f628baa142b40c557e267e0d0,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

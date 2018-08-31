@@ -40,7 +40,7 @@ public class Fire : MonoBehaviour {
             }
             else if (isDying)
             {
-                //AdjustParticleSystems();
+                AdjustParticleSystems();
                 ScaleParticleObj();
                 if (currentTime <= 0)
                 {
