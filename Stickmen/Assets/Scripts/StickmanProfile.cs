@@ -2,6 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Stats
+{
+    strength,
+    dexterity,
+    resilience,
+    expertise,
+    endurance
+}
+
 [System.Serializable]
 public class StickmanProfile {
 
@@ -12,11 +21,17 @@ public class StickmanProfile {
     private int MAXSTAT = 12;
     public int startingStat = 4;
 
-    public int strength; // Physical dmg and range
-    public int dexterity; // Movement speed  and chance to win initiative duels
-    public int resilience; // Health points and resistance to flinching
-    public int expertise; // Mana regen and total mana 
-    public int endurance; // Stamina regen and total stamina
+    public int strength;                // Physical dmg and range
+    public int dexterity;               // Movement speed  and chance to win initiative duels
+    public int resilience;              // Health points and resistance to flinching
+    public int expertise;               // Mana regen and total mana 
+    public int endurance;               // Stamina regen and total stamina
+
+    private int base_strength = 3;      // base value for the strength stat
+    private int base_dexterity = 3;     // base value for the dexterity stat
+    private int base_resilience = 3;    // base value for the resilience stat
+    private int base_expertise = 3;     // base value for the expertise stat
+    private int base_endurance = 3;     // base value for the endurance stat
 
     private List<Move> _moveList;
 
@@ -48,39 +63,39 @@ public class StickmanProfile {
         return null;
     }
 
-    public bool IncrementStat(string affectedStat)
+    public bool IncrementStat(Stats affectedStat)
     {
         switch (affectedStat)
         {
-            case "strength":
+            case Stats.strength:
                 if(strength < MAXSTAT)
                 {
                     strength++;
                     return true;
                 }
                 break;
-            case "dexterity":
+            case Stats.dexterity:
                 if (dexterity < MAXSTAT)
                 {
                     dexterity++;
                     return true;
                 }
                 break;
-            case "resilience":
+            case Stats.resilience:
                 if (resilience < MAXSTAT)
                 {
                     resilience++;
                     return true;
                 }
                 break;
-            case "expertise":
+            case Stats.expertise:
                 if (expertise < MAXSTAT)
                 {
                     expertise++;
                     return true;
                 }
                 break;
-            case "endurance":
+            case Stats.endurance:
                 if (endurance < MAXSTAT)
                 {
                     endurance++;
@@ -88,45 +103,44 @@ public class StickmanProfile {
                 }
                 break;
             default:
-                Debug.LogError("Stat name: (" + affectedStat + ") is invalid");
                 return false;
         }
         return false;
     }
 
-    public bool DecrementStat(string affectedStat)
+    public bool DecrementStat(Stats affectedStat)
     {
         switch (affectedStat)
         {
-            case "strength":
+            case Stats.strength:
                 if (strength > 0)
                 {
                     strength--;
                     return true;
                 }
                 break;
-            case "dexterity":
+            case Stats.dexterity:
                 if (dexterity > 0)
                 {
                     dexterity--;
                     return true;
                 }
                 break;
-            case "resilience":
+            case Stats.resilience:
                 if (resilience > 0)
                 {
                     resilience--;
                     return true;
                 }
                 break;
-            case "expertise":
+            case Stats.expertise:
                 if (expertise > 0)
                 {
                     expertise--;
                     return true;
                 }
                 break;
-            case "endurance":
+            case Stats.endurance:
                 if (endurance > 0)
                 {
                     endurance--;
@@ -134,28 +148,45 @@ public class StickmanProfile {
                 }
                 break;
             default:
-                Debug.LogError("Stat name: (" + affectedStat + ") is invalid");
                 return false;
         }
         return false;
     }
 
-    public int GetStat(string stat)
+    public int GetStat(Stats stat)
     {
         switch (stat)
         {
-            case "strength":
+            case Stats.strength:
                 return strength;
-            case "dexterity":
+            case Stats.dexterity:
                 return dexterity;
-            case "resilience":
+            case Stats.resilience:
                 return resilience;
-            case "expertise":
+            case Stats.expertise:
                 return expertise;
-            case "endurance":
+            case Stats.endurance:
                 return endurance;
             default:
-                Debug.LogError("Stat name: (" + stat + ") is invalid");
+                return -1;
+        }
+    }
+
+    public int GetStatValue(Stats stat)
+    {
+        switch (stat)
+        {
+            case Stats.strength:
+                return strength + base_strength;
+            case Stats.dexterity:
+                return dexterity + base_dexterity;
+            case Stats.resilience:
+                return resilience + base_resilience;
+            case Stats.expertise:
+                return expertise + base_expertise;
+            case Stats.endurance:
+                return endurance + base_endurance;
+            default:
                 return -1;
         }
     }

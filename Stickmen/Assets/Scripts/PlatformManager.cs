@@ -20,7 +20,7 @@ public class PlatformManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        //InitPlatforms();
+        InitPlatforms();
     }
 	
     private void InitPlatforms()

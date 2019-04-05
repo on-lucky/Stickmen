@@ -104,7 +104,7 @@ public class SideBarScaler : MonoBehaviour {
         }
     }
 
-        private void UpdateCamera()
+    private void UpdateCamera()
     {
         if (_slider.currentPosX != _slider.goalPosX)
         {

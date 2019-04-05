@@ -64,7 +64,7 @@ public class TimeModule : MonoBehaviour {
 
     public void StopRewind()
     {
-        rb.isKinematic = false;
+        //rb.isKinematic = false;
         isRewinding = false;
     }
 

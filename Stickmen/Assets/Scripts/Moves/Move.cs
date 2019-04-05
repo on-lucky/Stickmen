@@ -4,12 +4,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "new move", menuName = "move")]
 public class Move : ScriptableObject {
 
-    public string _category;        //Category name used to classify this Move
-    public string _moveName;        //Name of this Move
-    public Sprite _icon;            //Sprite containing the picture of this Move
+    public string _category;        // Category name used to classify this Move
+    public string _moveName;        // Name of this Move
+    public Sprite _icon;            // Sprite containing the picture of this Move
 
-    private Move _parent;           //Parent Move of this Move
-    private List<Move> _childMoves; //List containing the children Moves of this Move
+    private Move _parent;           // Parent Move of this Move
+    private List<Move> _childMoves; // List containing the children Moves of this Move
+
+    protected GameObject stickman;  // The GameObject that should execute the Move 
+    protected Animator animator;    // animator animating the Move
+    protected bool isPhantom;       // if the object that is executing the move is a phantom
 
     /// <summary>
     /// Verifies if the Move has a category
@@ -72,18 +76,85 @@ public class Move : ScriptableObject {
         _childMoves = new List<Move>();
     }
 
-    public virtual void SetUp(GameObject stickman)
+    public virtual void SetUp(GameObject _stickman)
     {
-        Debug.Log("Called set up on a basic move!");
+        stickman = _stickman;
+        animator = stickman.GetComponentInChildren<Animator>();
     }
 
-    public virtual void PhantomExecute(MouseFollower target)
+    public virtual void SpawnPhantom(MouseFollower target)
     {
-        Debug.Log("Called phantom exectute on a basic move!");
+        Debug.Log("Called spawn phantom on a basic move!");
+    }
+
+    public virtual void PhantomExecute()
+    {
+        Debug.Log("Called PhantomExecute on a basic move!");
     }
 
     public virtual void Execute(MouseFollower target)
     {
         Debug.Log("Called execute on a basic move!");
+    }
+
+    public virtual bool UpdateMethod(float deltaTime)
+    {
+        Debug.Log("Called update method on a basic move!");
+        return true;
+    }
+
+    protected StickmanProfile GetProfile()
+    {
+        NetworkPlayer stickmanPlayer = stickman.GetComponent<NetworkPlayer>();
+        Shade shade = stickman.GetComponent<Shade>();
+        Phantom phantom = stickman.GetComponent<Phantom>();
+
+        if (stickmanPlayer != null)
+        {
+            return stickmanPlayer._profile;
+        }
+        else if(shade != null)
+        {
+            return shade._profile;
+        }
+        else
+        {
+            return phantom._profile;
+        }
+    }
+
+    protected void SetIsPhantom()
+    {
+        NetworkPlayer stickmanPlayer = stickman.GetComponent<NetworkPlayer>();
+        Shade shade = stickman.GetComponent<Shade>();
+        Phantom phantom = stickman.GetComponent<Phantom>();
+
+        if (stickmanPlayer != null)
+        {
+            isPhantom = false;
+        }
+        else if (shade != null)
+        {
+            isPhantom = false;
+        }
+        else
+        {
+            isPhantom = true;
+        }
+    }
+
+    public void SetAnimatorSpeed(float speed)
+    {
+        animator.speed = speed;
+    }
+
+    public bool CheckPhantom()
+    {
+        return isPhantom;
+    }
+
+    public void DestroyStickman()
+    {
+        Destroy(stickman);
     }
 }

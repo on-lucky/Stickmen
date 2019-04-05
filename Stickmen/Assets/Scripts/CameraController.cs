@@ -86,7 +86,7 @@ public class CameraController : MonoBehaviour {
 
     private void UpdateZoom()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        if (Input.GetAxis("Mouse ScrollWheel") != 0 && isEnabled)
         {
             //cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel");
             mainCam.transform.Translate(new Vector3(0, 0, Input.GetAxis("Mouse ScrollWheel")));

@@ -6,6 +6,7 @@ public class MouseFollower : MonoBehaviour {
 
     public bool stick_to_ground = false;
     public bool stick_to_platform = false;
+    public float snap_distance = 0f;
 
     private Vector3 Last_position;
 
@@ -33,6 +34,10 @@ public class MouseFollower : MonoBehaviour {
         {
             MoveToGround();
         }
+        else if (snap_distance != 0 && snap_distance >= DistanceToGround())
+        {
+            MoveToGround();
+        }
         else
         {
             Last_position = transform.position;
@@ -54,7 +59,7 @@ public class MouseFollower : MonoBehaviour {
                 
                 if(Mathf.Abs(hit.point.y - Last_position.y) < 2 && hit.point.x < platform.x_max && hit.point.x > platform.x_min)
                 {
-                    transform.position = hit.point;
+                    transform.position = hit.point + new Vector3(0f, 0.02f, 0f);
                     Last_position = transform.position;
                 }
                 else
@@ -73,7 +78,7 @@ public class MouseFollower : MonoBehaviour {
             }
             else
             {
-                transform.position = hit.point;
+                transform.position = hit.point + new Vector3(0f, 0.02f, 0f);
                 Last_position = transform.position;
             }
         }
@@ -89,6 +94,24 @@ public class MouseFollower : MonoBehaviour {
                 transform.position = Last_position;
             }
             Last_position = transform.position;
+        }
+    }
+
+    private float DistanceToGround()
+    {
+        Vector3 starting_pos = transform.position;
+        Platform platform = PlatformManager.instance.GetCurrentPlatform();
+
+        int layerMask = 1 << 11;
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + new Vector3(0, 2, 0), transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, layerMask))
+        {
+            return starting_pos.y - hit.point.y;
+        }
+        else
+        {
+            return 10f;
         }
     }
 }

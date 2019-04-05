@@ -5,30 +5,62 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "new movement move", menuName = "movement move")]
 public class PureMovementMove : Move {
 
-    private GameObject _stickman;
+    protected Vector3 goal_position;
+    protected Vector3 starting_position;
 
-    public override void SetUp(GameObject stickman)
+    protected GameObject target;
+
+    /*public PureMovementMove(GameObject _stickman, Vector3 startingPos, Vector3 goalPos)
     {
-        _stickman = stickman;
-        GameManager.instance.game_state = GameManager.GameState.Aiming;
-        _stickman.GetComponent<PhantomSpawner>().StartSpawning();
+        stickman = _stickman;
+        starting_position = startingPos;
+        goal_position = goalPos;
+        animator = stickman.GetComponentInChildren<Animator>();
+    }*/
 
-        GameObject target = Instantiate(GameManager.instance.ground_target, GameManager.instance.local_stickman.transform);
-        target.GetComponent<MouseFollower>().stick_to_platform = true;
+    public override void SetUp(GameObject _stickman)
+    {
+        base.SetUp(_stickman);
+        GameManager.instance.game_state = GameManager.GameState.Aiming;
+        stickman.GetComponent<PhantomSpawner>().StartSpawning();
+        SetIsPhantom();
+
+        target = Instantiate(GameManager.instance.ground_target, GameManager.instance.local_stickman.transform);
         target.GetComponentInChildren<LightShafts>().m_Cameras[0] = Camera.main;
     }
 
-    public override void PhantomExecute(MouseFollower target)
+    public override void PhantomExecute()
     {
-        GameObject phantom = Instantiate(GameManager.instance.phantom_template, _stickman.transform);
-        Vector3 pos = target.transform.position;
-        phantom.GetComponent<StickmanRunner>().RunTo(target.transform.position, phantom);
+        //Debug.Log("going from: " + starting_position + " to :" + goal_position);
+        animator.speed = 1;
+        if (starting_position.x < goal_position.x)
+        {
+            stickman.GetComponentInChildren<OrientationManager>().LookRight();
+        }
+        else
+        {
+            stickman.GetComponentInChildren<OrientationManager>().LookLeft();
+        }
     }
 
     public override void Execute(MouseFollower target)
     {
-        Vector3 pos = target.transform.position;
+        goal_position = target.transform.position;
+        starting_position = stickman.transform.position;
         TimeBarSlider.instance.StartCounting();
-        _stickman.GetComponent<StickmanRunner>().RunTo(target.transform.position, GameManager.instance.local_shade.gameObject);
+        //ShadeMoveManager.instance.SetUpdating(true);
+        ShadeMoveManager.instance.AddMove(this);
+
+        animator.speed = 1;
+        if (starting_position.x < goal_position.x)
+        {
+            stickman.GetComponentInChildren<OrientationManager>().LookRight();
+        }
+        else
+        {
+            stickman.GetComponentInChildren<OrientationManager>().LookLeft();
+        }
+
+        //stickman.GetComponent<StickmanRunner>().RunTo(target.transform.position, GameManager.instance.local_shade.gameObject);
     }
 }

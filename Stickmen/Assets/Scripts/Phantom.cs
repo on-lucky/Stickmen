@@ -23,7 +23,7 @@ public class Phantom : MonoBehaviour {
     {
         if (GoalReached() || mat.color.a <= 0)
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
         else
         {

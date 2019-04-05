@@ -7,7 +7,7 @@ public class StatButton : ButtonSelector{
 
     public StatBar targetStatBar;
     public bool isPlus = true;
-    public string affectedStat;
+    public Stats affectedStat;
     public StatDiagram[] diagrams;
     public TextMeshPro text;
 
@@ -17,7 +17,7 @@ public class StatButton : ButtonSelector{
     {
         StickmanProfile profileTemp = new StickmanProfile();
         targetStatBar.SetBar(profileTemp.GetStat(affectedStat));
-        text.text = affectedStat[0].ToString().ToUpper() + affectedStat.Substring(1) + ":\t" + profileTemp.GetStat(affectedStat);
+        text.text = GetStatName((int)affectedStat) + ":\t" + profileTemp.GetStat(affectedStat);
     }
 
     protected override void OnMouseDown()
@@ -65,6 +65,25 @@ public class StatButton : ButtonSelector{
 
     private void UpdateText()
     {
-        text.text = affectedStat[0].ToString().ToUpper() + affectedStat.Substring(1) + ":\t" + profile.GetStat(affectedStat);
+        text.text = GetStatName((int)affectedStat) + ":\t" + profile.GetStat(affectedStat);
+    }
+
+    private string GetStatName(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                return "Strength";
+            case 1:
+                return "Dexterity";
+            case 2:
+                return "Resilience";
+            case 3:
+                return "Expertise";
+            case 4:
+                return "Endurance";
+            default:
+                return "Unknown";
+        }
     }
 }

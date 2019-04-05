@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stickmen", "Stickmen.csproj", "{D40C43A7-2CAF-803E-CDD2-41D14EE61199}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stickmen.Editor", "Stickmen.Editor.csproj", "{54618E3D-3E2D-D95D-CB83-74F572273D29}"

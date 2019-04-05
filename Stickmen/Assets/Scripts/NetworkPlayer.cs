@@ -37,11 +37,6 @@ public class NetworkPlayer : MonoBehaviour {
         RegisterSelf();
     }
 
-    protected void OnMouseDown()
-    {
-        Debug.Log("yo");
-    }
-
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         PlaceStickman(new Vector3(-1, 0, 0));
@@ -110,7 +105,7 @@ public class NetworkPlayer : MonoBehaviour {
     {
         if (current_move != null)
         {
-            current_move.PhantomExecute(target);
+            current_move.SpawnPhantom(target);
         }
         else
         {
