@@ -78,6 +78,7 @@ public class NetworkPlayer : MonoBehaviour {
     {
         _shade.GetComponentInChildren<IconSpawner>().ShowIcons(false);
         current_move = _shade._profile.FindMove(move_name);
+        _shade.SetCurrentMove(current_move);
 
         if(current_move != null)
         {
@@ -116,5 +117,10 @@ public class NetworkPlayer : MonoBehaviour {
     public void ShowIcons()
     {
         _shade.GetComponentInChildren<IconSpawner>().ShowIcons(true);
+    }
+
+    public void SwitchAimer()
+    {
+        current_move.SwitchAimer();
     }
 }

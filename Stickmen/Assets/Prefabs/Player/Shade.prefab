@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 114732701310482620}
   - component: {fileID: 114427742869494798}
   - component: {fileID: 114715040322283330}
+  - component: {fileID: 114040175758350824}
   m_Layer: 10
   m_Name: Shade
   m_TagString: Untagged
@@ -577,6 +578,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114040175758350824
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318974624400404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb140e561fcc06940b8ce8705452d101, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aState: 0
 --- !u!114 &114148413498868266
 MonoBehaviour:
   m_ObjectHideFlags: 1

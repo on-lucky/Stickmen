@@ -14,5 +14,8 @@ MonoBehaviour:
   _category: Movement
   _moveName: Run
   _icon: {fileID: 21300000, guid: 282ba6f438ee4144c9abed6944c240ad, type: 3}
-  speed_multiplier: 1
-  acceleration_multiplier: 2
+  targets:
+  - {fileID: 1574274618347990, guid: b5997673efab8c1458e340b056cabb91, type: 2}
+  - {fileID: 1363796867154136, guid: e58779761b5bb1c409ce2340df81583f, type: 2}
+  speed_multiplier: 1.5
+  acceleration_multiplier: 0.1

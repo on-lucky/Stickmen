@@ -7,6 +7,8 @@ public class JumpMove : PureMovementMove {
 
     public GameObject arcAimer;
     public float speed_multiplier = 1f;
+    public float jumpDelay = 1f;
+    public float landDelay = 1f;
 
     private Vector3[] arc_positions;
     private int arc_pts_count;
@@ -15,13 +17,18 @@ public class JumpMove : PureMovementMove {
     private float current_pos_x;
     private float jump_distance;
     private float jump_height;
-    private float acceleration = 20f;
+    public float acceleration = 200f;
+    private float currentTime = 0f;
+    private bool isLanding = false;
+    private bool willLand = false;
 
     public override void SetUp(GameObject _stickman)
     {
         base.SetUp(_stickman);
         target.GetComponent<MouseFollower>().stick_to_platform = false;
         target.GetComponent<MouseFollower>().snap_distance = 2f;
+        currentTime = 0f;
+        isLanding = false;
 
         if (arcAimer != null)
         {
@@ -51,6 +58,8 @@ public class JumpMove : PureMovementMove {
         arc_positions = arc_pos;
         arc_pts_count = pts_count;
         SetIsPhantom();
+        currentTime = 0f;
+        isLanding = false;
     }
 
     public override void SpawnPhantom(MouseFollower target)
@@ -63,6 +72,7 @@ public class JumpMove : PureMovementMove {
         phantomMove.Init(phantom, stickman.transform.position, target.transform.position, arc_positions, arc_pts_count);
 
         ShadeMoveManager.instance.AddMove(phantomMove);
+        phantom.GetComponent<AnimationManager>().SwitchState(AnimState.Jump);
         phantomMove.PhantomExecute();
     }
 
@@ -73,36 +83,67 @@ public class JumpMove : PureMovementMove {
 
         if (stickman != null)
         {
-
-            float mov_distance = deltaTime * stickman_speed;
-            current_pos_x += mov_distance;
-
-            int first_point_index = (int)((current_pos_x / jump_distance) * (arc_pts_count -1));
-            //Debug.Log("jump dist: " + jump_distance);
-            //Debug.Log("index: " + first_point_index);
-            if (first_point_index < arc_pts_count - 1)
+            currentTime += deltaTime;
+            if (!isLanding)
             {
+                if (currentTime > jumpDelay)
+                {
 
-                float ratio_between_pts = (current_pos_x % (jump_distance / (arc_pts_count - 1))) / (jump_distance / (arc_pts_count - 1));
+                    float mov_distance = deltaTime * stickman_speed;
+                    current_pos_x += mov_distance;
 
-                Vector3 new_pos = Vector3.Lerp(arc_positions[first_point_index], arc_positions[first_point_index + 1], ratio_between_pts);
+                    int first_point_index = (int)((current_pos_x / jump_distance) * (arc_pts_count - 1));
+                    if (first_point_index < arc_pts_count - 1)
+                    {
 
-                stickman.transform.position = new_pos;
-                //Debug.Log("going to: " + new_pos);
+                        float ratio_between_pts = (current_pos_x % (jump_distance / (arc_pts_count - 1))) / (jump_distance / (arc_pts_count - 1));
+
+                        Vector3 new_pos = Vector3.Lerp(arc_positions[first_point_index], arc_positions[first_point_index + 1], ratio_between_pts);
+
+                        stickman.transform.position = new_pos;
+                    }
+                    else
+                    {
+                        stickman.transform.position = arc_positions[arc_positions.Length - 1];
+
+                        if (willLand)
+                        {
+                            isLanding = true;
+                            currentTime = 0f;
+                        }
+                        else
+                        {
+                            animator.speed = 0;
+                            ShadeMoveManager.instance.RemoveMove(this);
+                            isMoveOver = true;
+                            if (!isPhantom)
+                            {
+                                GameManager.instance.InitChoosingMode();
+                            }
+                            else
+                            {
+                                Destroy(stickman);
+                            }
+                        }
+
+                    }
+                }
             }
             else
             {
-                animator.speed = 0;
-                ShadeMoveManager.instance.RemoveMove(this);
-                isMoveOver = true;
-                if (!isPhantom)
+                if(currentTime > landDelay)
                 {
-                    Debug.Log("STAHP");
-                    GameManager.instance.InitChoosingMode();
-                }
-                else
-                {
-                    Destroy(stickman);
+                    animator.speed = 0;
+                    ShadeMoveManager.instance.RemoveMove(this);
+                    isMoveOver = true;
+                    if (!isPhantom)
+                    {
+                        GameManager.instance.InitChoosingMode();
+                    }
+                    else
+                    {
+                        Destroy(stickman);
+                    }
                 }
             }
         }
@@ -132,9 +173,12 @@ public class JumpMove : PureMovementMove {
     {
         base.Execute(target);
 
+        willLand = target.GetComponent<MouseFollower>().GetIsOnGround();
         Destroy(aimer_instance);
         stickman.GetComponent<Rigidbody>().isKinematic = true;
         aimer_instance.GetComponent<LineRenderer>().GetPositions(arc_positions);
         this.Init(stickman, stickman.transform.position, target.transform.position, arc_positions, arc_pts_count);
+
+        stickman.GetComponent<AnimationManager>().SwitchState(AnimState.Jump);
     }
 }

@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
             game_state = GameState.Executing;
             local_stickman.ExecuteMove(target);
         }
-	}
+    }
 
     public void SpawnTarget()
     {

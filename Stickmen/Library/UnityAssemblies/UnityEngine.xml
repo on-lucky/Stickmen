@@ -3945,49 +3945,45 @@ Note: Using raw JNI functions requires advanced knowledge of the Android Java Na
         <para>Apply the default Root Motion.</para>
       </summary>
     </member>
-    <member name="M:UnityEngine.Animator.CrossFade(System.String,System.Single,System.Int32,System.Single,System.Single)">
+    <member name="M:UnityEngine.Animator.CrossFade(System.String,System.Single,System.Int32,System.Single)">
       <summary>
-        <para>Creates a crossfade from the current state to any other state using normalized times.</para>
+        <para>See IAnimatorControllerPlayable.CrossFade.</para>
       </summary>
-      <param name="stateName">The name of the state.</param>
-      <param name="stateHashName">The hash name of the state.</param>
-      <param name="normalizedTransitionDuration">The duration of the transition (normalized).</param>
-      <param name="layer">The layer where the crossfade occurs.</param>
-      <param name="normalizedTimeOffset">The time of the state (normalized).</param>
-      <param name="normalizedTransitionTime">The time of the transition (normalized).</param>
+      <param name="stateName"></param>
+      <param name="transitionDuration"></param>
+      <param name="layer"></param>
+      <param name="normalizedTime"></param>
+      <param name="stateNameHash"></param>
     </member>
-    <member name="M:UnityEngine.Animator.CrossFade(System.Int32,System.Single,System.Int32,System.Single,System.Single)">
+    <member name="M:UnityEngine.Animator.CrossFade(System.Int32,System.Single,System.Int32,System.Single)">
       <summary>
-        <para>Creates a crossfade from the current state to any other state using normalized times.</para>
+        <para>See IAnimatorControllerPlayable.CrossFade.</para>
       </summary>
-      <param name="stateName">The name of the state.</param>
-      <param name="stateHashName">The hash name of the state.</param>
-      <param name="normalizedTransitionDuration">The duration of the transition (normalized).</param>
-      <param name="layer">The layer where the crossfade occurs.</param>
-      <param name="normalizedTimeOffset">The time of the state (normalized).</param>
-      <param name="normalizedTransitionTime">The time of the transition (normalized).</param>
+      <param name="stateName"></param>
+      <param name="transitionDuration"></param>
+      <param name="layer"></param>
+      <param name="normalizedTime"></param>
+      <param name="stateNameHash"></param>
     </member>
-    <member name="M:UnityEngine.Animator.CrossFadeInFixedTime(System.Int32,System.Single,System.Int32,System.Single,System.Single)">
+    <member name="M:UnityEngine.Animator.CrossFadeInFixedTime(System.String,System.Single,System.Int32,System.Single)">
       <summary>
-        <para>Creates a crossfade from the current state to any other state using times in seconds.</para>
+        <para>See IAnimatorControllerPlayable.CrossFadeInFixedTime.</para>
       </summary>
-      <param name="stateName">The name of the state.</param>
-      <param name="stateHashName">The hash name of the state.</param>
-      <param name="fixedTransitionDuration">The duration of the transition (in seconds).</param>
-      <param name="layer">The layer where the crossfade occurs.</param>
-      <param name="fixedTimeOffset">The time of the state (in seconds).</param>
-      <param name="normalizedTransitionTime">The time of the transition (normalized).</param>
+      <param name="stateName"></param>
+      <param name="transitionDuration"></param>
+      <param name="layer"></param>
+      <param name="fixedTime"></param>
+      <param name="stateNameHash"></param>
     </member>
-    <member name="M:UnityEngine.Animator.CrossFadeInFixedTime(System.String,System.Single,System.Int32,System.Single,System.Single)">
+    <member name="M:UnityEngine.Animator.CrossFadeInFixedTime(System.Int32,System.Single,System.Int32,System.Single)">
       <summary>
-        <para>Creates a crossfade from the current state to any other state using times in seconds.</para>
+        <para>See IAnimatorControllerPlayable.CrossFadeInFixedTime.</para>
       </summary>
-      <param name="stateName">The name of the state.</param>
-      <param name="stateHashName">The hash name of the state.</param>
-      <param name="fixedTransitionDuration">The duration of the transition (in seconds).</param>
-      <param name="layer">The layer where the crossfade occurs.</param>
-      <param name="fixedTimeOffset">The time of the state (in seconds).</param>
-      <param name="normalizedTransitionTime">The time of the transition (normalized).</param>
+      <param name="stateName"></param>
+      <param name="transitionDuration"></param>
+      <param name="layer"></param>
+      <param name="fixedTime"></param>
+      <param name="stateNameHash"></param>
     </member>
     <member name="M:UnityEngine.Animator.GetAnimatorTransitionInfo(System.Int32)">
       <summary>
@@ -4823,16 +4819,6 @@ Note: Using raw JNI functions requires advanced knowledge of the Android Java Na
     <member name="P:UnityEngine.AnimatorTransitionInfo.anyState">
       <summary>
         <para>Returns true if the transition is from an AnyState node, or from Animator.CrossFade().</para>
-      </summary>
-    </member>
-    <member name="P:UnityEngine.AnimatorTransitionInfo.duration">
-      <summary>
-        <para>Duration of the transition.</para>
-      </summary>
-    </member>
-    <member name="P:UnityEngine.AnimatorTransitionInfo.durationUnit">
-      <summary>
-        <para>The unit of the transition duration.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.AnimatorTransitionInfo.fullPathHash">
@@ -8782,16 +8768,6 @@ See Also: WWW.assetBundle, WWW.LoadFromCacheOrDownload.</param>
       <summary>
         <para>Removes all cached content in the cache that has been cached by the current application.</para>
       </summary>
-      <param name="expiration">The number of seconds that AssetBundles may remain unused in the cache.</param>
-      <returns>
-        <para>Returns True when cache clearing succeeded.</para>
-      </returns>
-    </member>
-    <member name="M:UnityEngine.Cache.ClearCache(System.Int32)">
-      <summary>
-        <para>Removes all cached content in the cache that has been cached by the current application.</para>
-      </summary>
-      <param name="expiration">The number of seconds that AssetBundles may remain unused in the cache.</param>
       <returns>
         <para>Returns True when cache clearing succeeded.</para>
       </returns>
@@ -8828,7 +8804,7 @@ See Also: WWW.assetBundle, WWW.LoadFromCacheOrDownload.</param>
     </member>
     <member name="P:UnityEngine.Caching.currentCacheForWriting">
       <summary>
-        <para>Gets or sets the current cache in which AssetBundles should be cached.</para>
+        <para>Returns the current cache in which AssetBundles should be cached.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.Caching.defaultCache">
@@ -8843,7 +8819,7 @@ See Also: WWW.assetBundle, WWW.LoadFromCacheOrDownload.</param>
     </member>
     <member name="P:UnityEngine.Caching.ready">
       <summary>
-        <para>Returns true if Caching system is ready for use.</para>
+        <para>Is caching ready?</para>
       </summary>
     </member>
     <member name="M:UnityEngine.Caching.AddCache(System.String)">
@@ -8865,16 +8841,6 @@ See Also: WWW.assetBundle, WWW.LoadFromCacheOrDownload.</param>
       <summary>
         <para>Removes all AssetBundle and Procedural Material content that has been cached by the current application.</para>
       </summary>
-      <param name="expiration">The number of seconds that AssetBundles may remain unused in the cache.</param>
-      <returns>
-        <para>True when cache clearing succeeded, false if cache was in use.</para>
-      </returns>
-    </member>
-    <member name="M:UnityEngine.Caching.ClearCache(System.Int32)">
-      <summary>
-        <para>Removes all AssetBundle and Procedural Material content that has been cached by the current application.</para>
-      </summary>
-      <param name="expiration">The number of seconds that AssetBundles may remain unused in the cache.</param>
       <returns>
         <para>True when cache clearing succeeded, false if cache was in use.</para>
       </returns>
@@ -8886,7 +8852,7 @@ See Also: WWW.assetBundle, WWW.LoadFromCacheOrDownload.</param>
       <param name="assetBundleName">The AssetBundle name.</param>
       <param name="hash">Version needs to be cleaned.</param>
       <returns>
-        <para>Returns true when cache clearing succeeded.  Can return false if any cached bundle is in use.</para>
+        <para>Returns true when cache clearing succeeded.</para>
       </returns>
     </member>
     <member name="M:UnityEngine.Caching.ClearOtherCachedVersions(System.String,UnityEngine.Hash128)">
@@ -8934,20 +8900,10 @@ See Also: WWW.assetBundle, WWW.LoadFromCacheOrDownload.</param>
       <summary>
         <para>Checks if an AssetBundle is cached.</para>
       </summary>
-      <param name="url">The filename of the AssetBundle. Domain and path information are stripped from this string automatically.</param>
-      <param name="version">The version number of the AssetBundle to check for. Negative values are not allowed.</param>
-      <param name="hash">Hash128 which is used as the version of the AssetBundle.</param>
-      <returns>
-        <para>True if an AssetBundle matching the url and version parameters has previously been loaded using WWW.LoadFromCacheOrDownload() and is currently stored in the cache. Returns false if the AssetBundle is not in cache, either because it has been flushed from the cache or was never loaded using the Caching API.</para>
-      </returns>
-    </member>
-    <member name="M:UnityEngine.Caching.IsVersionCached(System.String,UnityEngine.Hash128)">
-      <summary>
-        <para>Checks if an AssetBundle is cached.</para>
-      </summary>
-      <param name="url">The filename of the AssetBundle. Domain and path information are stripped from this string automatically.</param>
-      <param name="version">The version number of the AssetBundle to check for. Negative values are not allowed.</param>
-      <param name="hash">Hash128 which is used as the version of the AssetBundle.</param>
+      <param name="string">Url The filename of the AssetBundle. Domain and path information are stripped from this string automatically.</param>
+      <param name="int">Version The version number of the AssetBundle to check for. Negative values are not allowed.</param>
+      <param name="url"></param>
+      <param name="version"></param>
       <returns>
         <para>True if an AssetBundle matching the url and version parameters has previously been loaded using WWW.LoadFromCacheOrDownload() and is currently stored in the cache. Returns false if the AssetBundle is not in cache, either because it has been flushed from the cache or was never loaded using the Caching API.</para>
       </returns>
@@ -8989,7 +8945,7 @@ See Also: WWW.assetBundle, WWW.LoadFromCacheOrDownload.</param>
     </member>
     <member name="P:UnityEngine.Camera.activeTexture">
       <summary>
-        <para>Gets the temporary RenderTexture target for this Camera.</para>
+        <para>Gets or sets the temporary RenderTexture target for this Camera.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.Camera.actualRenderingPath">
@@ -10329,11 +10285,6 @@ See Also: CanvasRenderer.SetMaterialCount, CanvasRenderer.SetTexture.</para>
         <para>An array of CapsuleColliders which this Cloth instance should collide with.</para>
       </summary>
     </member>
-    <member name="P:UnityEngine.Cloth.clothSolverFrequency">
-      <summary>
-        <para>Number of cloth solver iterations per second.</para>
-      </summary>
-    </member>
     <member name="P:UnityEngine.Cloth.coefficients">
       <summary>
         <para>The cloth skinning coefficients used to set up how the cloth interacts with the skinned mesh.</para>
@@ -10347,11 +10298,6 @@ See Also: CanvasRenderer.SetMaterialCount, CanvasRenderer.SetTexture.</para>
     <member name="P:UnityEngine.Cloth.damping">
       <summary>
         <para>Damp cloth motion.</para>
-      </summary>
-    </member>
-    <member name="P:UnityEngine.Cloth.enableContinuousCollision">
-      <summary>
-        <para>Enable continuous collision to improve collision stability.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.Cloth.enabled">
@@ -14380,21 +14326,6 @@ Windows Store Apps: tablets are treated as desktop machines, thus DeviceType.Han
         <para>Selects driven property RectTransform.sizeDelta.y.</para>
       </summary>
     </member>
-    <member name="T:UnityEngine.DurationUnit">
-      <summary>
-        <para>Describe the unit of a duration.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEngine.DurationUnit.Fixed">
-      <summary>
-        <para>A fixed duration is a duration expressed in seconds.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEngine.DurationUnit.Normalized">
-      <summary>
-        <para>A normalized duration is a duration expressed in percentage.</para>
-      </summary>
-    </member>
     <member name="T:UnityEngine.DynamicGI">
       <summary>
         <para>Allows to control the dynamic Global Illumination.</para>
@@ -17230,7 +17161,7 @@ Changing this value affects any subsequently loaded shaders. Initially this valu
         <para>Copies source texture into destination render texture with a shader.</para>
       </summary>
       <param name="source">Source texture.</param>
-      <param name="dest">The destination RenderTexture. Set this to null to blit directly to screen. See description for more information.</param>
+      <param name="dest">Destination RenderTexture, or null to blit directly to screen.</param>
       <param name="mat">Material to use. Material's shader could do some post-processing effect, for example.</param>
       <param name="pass">If -1 (default), draws all passes in the material. Otherwise, draws given pass only.</param>
       <param name="offset">Offset applied to the source texture coordinate.</param>
@@ -17241,7 +17172,7 @@ Changing this value affects any subsequently loaded shaders. Initially this valu
         <para>Copies source texture into destination render texture with a shader.</para>
       </summary>
       <param name="source">Source texture.</param>
-      <param name="dest">The destination RenderTexture. Set this to null to blit directly to screen. See description for more information.</param>
+      <param name="dest">Destination RenderTexture, or null to blit directly to screen.</param>
       <param name="mat">Material to use. Material's shader could do some post-processing effect, for example.</param>
       <param name="pass">If -1 (default), draws all passes in the material. Otherwise, draws given pass only.</param>
       <param name="offset">Offset applied to the source texture coordinate.</param>
@@ -17252,7 +17183,7 @@ Changing this value affects any subsequently loaded shaders. Initially this valu
         <para>Copies source texture into destination render texture with a shader.</para>
       </summary>
       <param name="source">Source texture.</param>
-      <param name="dest">The destination RenderTexture. Set this to null to blit directly to screen. See description for more information.</param>
+      <param name="dest">Destination RenderTexture, or null to blit directly to screen.</param>
       <param name="mat">Material to use. Material's shader could do some post-processing effect, for example.</param>
       <param name="pass">If -1 (default), draws all passes in the material. Otherwise, draws given pass only.</param>
       <param name="offset">Offset applied to the source texture coordinate.</param>
@@ -17263,7 +17194,7 @@ Changing this value affects any subsequently loaded shaders. Initially this valu
         <para>Copies source texture into destination render texture with a shader.</para>
       </summary>
       <param name="source">Source texture.</param>
-      <param name="dest">The destination RenderTexture. Set this to null to blit directly to screen. See description for more information.</param>
+      <param name="dest">Destination RenderTexture, or null to blit directly to screen.</param>
       <param name="mat">Material to use. Material's shader could do some post-processing effect, for example.</param>
       <param name="pass">If -1 (default), draws all passes in the material. Otherwise, draws given pass only.</param>
       <param name="offset">Offset applied to the source texture coordinate.</param>
@@ -24047,19 +23978,9 @@ Only usable on Android, Windows Phone or Windows Tablets.</para>
         <para>Is advertising tracking enabled.</para>
       </summary>
     </member>
-    <member name="P:UnityEngine.iOS.Device.deferSystemGesturesMode">
-      <summary>
-        <para>Defer system gestures until the second swipe on specific edges.</para>
-      </summary>
-    </member>
     <member name="P:UnityEngine.iOS.Device.generation">
       <summary>
         <para>The generation of the device. (Read Only)</para>
-      </summary>
-    </member>
-    <member name="P:UnityEngine.iOS.Device.hideHomeButton">
-      <summary>
-        <para>Specifies whether the home button should be hidden in the iOS build of this application.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.iOS.Device.systemVersion">
@@ -24149,19 +24070,9 @@ Only usable on Android, Windows Phone or Windows Tablets.</para>
         <para>iPad Pro 9.7", first generation.</para>
       </summary>
     </member>
-    <member name="F:UnityEngine.iOS.DeviceGeneration.iPadPro10Inch2Gen">
-      <summary>
-        <para>iPad Pro 10.5", second generation 10" iPad.</para>
-      </summary>
-    </member>
     <member name="F:UnityEngine.iOS.DeviceGeneration.iPadPro1Gen">
       <summary>
-        <para>iPad Pro 12.9", first generation.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEngine.iOS.DeviceGeneration.iPadPro2Gen">
-      <summary>
-        <para>iPad Pro 12.9", second generation.</para>
+        <para>iPad Pro, first generation.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.iOS.DeviceGeneration.iPadUnknown">
@@ -24239,16 +24150,6 @@ Only usable on Android, Windows Phone or Windows Tablets.</para>
         <para>iPhone 7 Plus.</para>
       </summary>
     </member>
-    <member name="F:UnityEngine.iOS.DeviceGeneration.iPhone8">
-      <summary>
-        <para>iPhone 8.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEngine.iOS.DeviceGeneration.iPhone8Plus">
-      <summary>
-        <para>iPhone 8 Plus.</para>
-      </summary>
-    </member>
     <member name="F:UnityEngine.iOS.DeviceGeneration.iPhoneSE1Gen">
       <summary>
         <para>iPhone SE, first generation.</para>
@@ -24257,11 +24158,6 @@ Only usable on Android, Windows Phone or Windows Tablets.</para>
     <member name="F:UnityEngine.iOS.DeviceGeneration.iPhoneUnknown">
       <summary>
         <para>Yet unknown iPhone.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEngine.iOS.DeviceGeneration.iPhoneX">
-      <summary>
-        <para>iPhone X.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.iOS.DeviceGeneration.iPodTouch1Gen">
@@ -24576,41 +24472,6 @@ Only usable on Android, Windows Phone or Windows Tablets.</para>
     <member name="P:UnityEngine.iOS.RemoteNotification.userInfo">
       <summary>
         <para>A dictionary for passing custom information to the notified application. (Read Only)</para>
-      </summary>
-    </member>
-    <member name="T:UnityEngine.iOS.SystemGestureDeferMode">
-      <summary>
-        <para>Bit-mask used to control the deferring of system gestures on iOS.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEngine.iOS.SystemGestureDeferMode.All">
-      <summary>
-        <para>Identifies all screen edges.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEngine.iOS.SystemGestureDeferMode.BottomEdge">
-      <summary>
-        <para>Identifies bottom screen edge.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEngine.iOS.SystemGestureDeferMode.LeftEdge">
-      <summary>
-        <para>Identifies left screen edge.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEngine.iOS.SystemGestureDeferMode.None">
-      <summary>
-        <para>Disables gesture deferring on all edges.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEngine.iOS.SystemGestureDeferMode.RightEdge">
-      <summary>
-        <para>Identifies right screen edge.</para>
-      </summary>
-    </member>
-    <member name="F:UnityEngine.iOS.SystemGestureDeferMode.TopEdge">
-      <summary>
-        <para>Identifies top screen edge.</para>
       </summary>
     </member>
     <member name="?:UnityEngine.ISerializationCallbackReceiver">
@@ -30350,13 +30211,6 @@ Use false when you want to use the existing bounding box and reduce the CPU cost
       </summary>
       <param name="routine"></param>
     </member>
-    <member name="M:UnityEngine.MonoBehaviour.StartCoroutine(System.String,System.Object)">
-      <summary>
-        <para>Starts a coroutine named methodName.</para>
-      </summary>
-      <param name="methodName"></param>
-      <param name="value"></param>
-    </member>
     <member name="M:UnityEngine.MonoBehaviour.StartCoroutine(System.String)">
       <summary>
         <para>Starts a coroutine named methodName.</para>
@@ -30364,11 +30218,12 @@ Use false when you want to use the existing bounding box and reduce the CPU cost
       <param name="methodName"></param>
       <param name="value"></param>
     </member>
-    <member name="M:UnityEngine.MonoBehaviour.StartCoroutine">
+    <member name="M:UnityEngine.MonoBehaviour.StartCoroutine(System.String,System.Object)">
       <summary>
-        <para>Starts a Coroutine named coroutine.</para>
+        <para>Starts a coroutine named methodName.</para>
       </summary>
-      <param name="coroutine">Name of the created Coroutine.</param>
+      <param name="methodName"></param>
+      <param name="value"></param>
     </member>
     <member name="M:UnityEngine.MonoBehaviour.StopAllCoroutines">
       <summary>
@@ -30380,21 +30235,14 @@ Use false when you want to use the existing bounding box and reduce the CPU cost
         <para>Stops the first coroutine named methodName, or the coroutine stored in routine running on this behaviour.</para>
       </summary>
       <param name="methodName">Name of coroutine.</param>
-      <param name="routine">Name of the function in code, including coroutines.</param>
+      <param name="routine">Name of the function in code.</param>
     </member>
     <member name="M:UnityEngine.MonoBehaviour.StopCoroutine(System.Collections.IEnumerator)">
       <summary>
         <para>Stops the first coroutine named methodName, or the coroutine stored in routine running on this behaviour.</para>
       </summary>
       <param name="methodName">Name of coroutine.</param>
-      <param name="routine">Name of the function in code, including coroutines.</param>
-    </member>
-    <member name="M:UnityEngine.MonoBehaviour.StopCoroutine(UnityEngine.Coroutine)">
-      <summary>
-        <para>Stops the first coroutine named methodName, or the coroutine stored in routine running on this behaviour.</para>
-      </summary>
-      <param name="methodName">Name of coroutine.</param>
-      <param name="routine">Name of the function in code, including coroutines.</param>
+      <param name="routine">Name of the function in code.</param>
     </member>
     <member name="T:UnityEngine.Motion">
       <summary>
@@ -33394,7 +33242,7 @@ Analogous to the version parameter for WWW.LoadFromCacheOrDownload.</param>
         <para>Create a UnityWebRequest configured to send form data to a server via HTTP POST.</para>
       </summary>
       <param name="uri">The target URI to which form data will be transmitted.</param>
-      <param name="postData">Form body data. Will be URLEncoded prior to transmission.</param>
+      <param name="postData">Form body data. Will be URLEncoded via WWWTranscoder.URLEncode prior to transmission.</param>
       <returns>
         <para>A UnityWebRequest configured to send form data to uri via POST.</para>
       </returns>
@@ -38274,13 +38122,7 @@ To get the current particle age, simply multiply X by Y.</para>
     </member>
     <member name="T:UnityEngine.PhysicMaterialCombine">
       <summary>
-        <para>Describes how physics materials of the colliding objects are combined.
-
-The friction force as well as the residual bounce impulse are applied symmertrically to both of the colliders in contact, so each pair of overlapping colliders must have a single set of friction and bouciness settings. However, one can set arbitrary physics materials to any colliders. For that particular reason, there is a mechanism that allows the combination of two different sets of properties that correspond to each of the colliders in contact into one set to be used in the solver.
-
-Specifying Average, Maximum, Minimum or Multiply as the physics material combine mode, you directly set the function that is used to combine the settings corresponding to the two overlapping colliders into one set of settings that can be used to apply the material effect.
-
-Note that there is a special case when the two overlapping colliders have physics materials with different combine modes set. In this particular case, the function that has the highest priority is used. The priority order is as follows: Average &lt; Minimum &lt; Multiply &lt; Maximum. For example, if one material has Average set but the other one has Maximum, then the combine function to be used is Maximum, since it has higher priority.</para>
+        <para>Describes how physic materials of colliding objects are combined.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.PhysicMaterialCombine.Average">
@@ -38575,11 +38417,9 @@ Note that there is a special case when the two overlapping colliders have physic
       <summary>
         <para>Makes the collision detection system ignore all collisions between collider1 and collider2.</para>
       </summary>
-      <param name="start">Start point.</param>
-      <param name="end">End point.</param>
-      <param name="ignore">Ignore collision.</param>
       <param name="collider1"></param>
       <param name="collider2"></param>
+      <param name="ignore"></param>
     </member>
     <member name="M:UnityEngine.Physics.IgnoreLayerCollision(System.Int32,System.Int32,System.Boolean)">
       <summary>
@@ -46848,11 +46688,6 @@ Updating a probe's cubemap is a costly operation. Unity needs to render the enti
         <para>Volume extent of a 3D render texture or number of slices of array texture.</para>
       </summary>
     </member>
-    <member name="P:UnityEngine.RenderTexture.vrUsage">
-      <summary>
-        <para>If this RenderTexture is a VR eye texture used in stereoscopic rendering, this property decides what special rendering occurs, if any.</para>
-      </summary>
-    </member>
     <member name="P:UnityEngine.RenderTexture.width">
       <summary>
         <para>The width of the render texture in pixels.</para>
@@ -46963,7 +46798,6 @@ Updating a probe's cubemap is a costly operation. Unity needs to render the enti
       <param name="memorylessMode">Render texture memoryless mode.</param>
       <param name="desc">Use this RenderTextureDesc for the settings when creating the temporary RenderTexture.</param>
       <param name="antiAliasing"></param>
-      <param name="vrUsage"></param>
     </member>
     <member name="M:UnityEngine.RenderTexture.GetTemporary(System.Int32,System.Int32,System.Int32,UnityEngine.RenderTextureFormat,UnityEngine.RenderTextureReadWrite,System.Int32)">
       <summary>
@@ -46978,7 +46812,6 @@ Updating a probe's cubemap is a costly operation. Unity needs to render the enti
       <param name="memorylessMode">Render texture memoryless mode.</param>
       <param name="desc">Use this RenderTextureDesc for the settings when creating the temporary RenderTexture.</param>
       <param name="antiAliasing"></param>
-      <param name="vrUsage"></param>
     </member>
     <member name="M:UnityEngine.RenderTexture.IsCreated">
       <summary>
@@ -48905,7 +48738,7 @@ A scene may be invalid if, for example, you tried to open a scene that does not 
     </member>
     <member name="?:UnityEngine.SceneManagement.SceneManager.sceneLoaded(UnityEngine.Events.UnityAction`2&lt;UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode&gt;)">
       <summary>
-        <para>Add a delegate to this to get notifications when a scene has loaded.</para>
+        <para>Add a delegate to this to get notifications when a scene has loaded</para>
       </summary>
       <param name="value"></param>
     </member>
@@ -51746,11 +51579,6 @@ Returns NULL if there is no associated alpha texture for the source sprite. This
     <member name="P:UnityEngine.SystemInfo.supportsStencil">
       <summary>
         <para>Is the stencil buffer supported? (Read Only)</para>
-      </summary>
-    </member>
-    <member name="P:UnityEngine.SystemInfo.supportsTextureWrapMirrorOnce">
-      <summary>
-        <para>Is mirror once texture wrap mode supported? (Read Only)</para>
       </summary>
     </member>
     <member name="P:UnityEngine.SystemInfo.supportsVibration">
@@ -55621,9 +55449,14 @@ Rotation of the tree on X-Z plane (in radians).</para>
     </member>
     <member name="M:UnityEngine.Vector3.Normalize(UnityEngine.Vector3)">
       <summary>
-        <para>Makes this vector have a magnitude of 1.</para>
+        <para></para>
       </summary>
       <param name="value"></param>
+    </member>
+    <member name="M:UnityEngine.Vector3.Normalize">
+      <summary>
+        <para>Makes this vector have a magnitude of 1.</para>
+      </summary>
     </member>
     <member name="?:UnityEngine.Vector3.op_Divide(UnityEngine.Vector3,System.Single)">
       <summary>
@@ -56409,7 +56242,7 @@ The actual number of audio tracks cannot be known in advance when playing URLs, 
     </member>
     <member name="P:UnityEngine.Video.VideoPlayer.targetCamera">
       <summary>
-        <para>Camera component to draw to when Video.VideoPlayer.renderMode is set to either Video.VideoTarget.CameraFarPlane or Video.VideoTarget.CameraNearPlane.</para>
+        <para>Camera component to draw to when Video.VideoPlayer.renderMode is set to either Video.VideoTarget.CameraBackPlane or Video.VideoTarget.CameraFrontPlane.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.Video.VideoPlayer.targetCameraAlpha">
@@ -59008,16 +58841,6 @@ This function calls &lt;a href=" https:msdn.microsoft.comen-uslibrarywindowsdesk
         <para>Gets the motor torque of the joint given the specified timestep.</para>
       </summary>
       <param name="timeStep">The time to calculate the motor torque for.</param>
-    </member>
-    <member name="T:UnityEngine.Windows.CrashReporting">
-      <summary>
-        <para>Exposes useful information related to crash reporting on Windows platforms.</para>
-      </summary>
-    </member>
-    <member name="P:UnityEngine.Windows.CrashReporting.crashReportFolder">
-      <summary>
-        <para>Returns the path to the crash report folder on Windows.</para>
-      </summary>
     </member>
     <member name="T:UnityEngine.Windows.Speech.ConfidenceLevel">
       <summary>

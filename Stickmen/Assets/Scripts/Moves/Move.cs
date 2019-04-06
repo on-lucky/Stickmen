@@ -15,6 +15,8 @@ public class Move : ScriptableObject {
     protected Animator animator;    // animator animating the Move
     protected bool isPhantom;       // if the object that is executing the move is a phantom
 
+    protected int aimerIndex = 0;   // index of the aimer of the move
+
     /// <summary>
     /// Verifies if the Move has a category
     /// </summary>
@@ -141,6 +143,11 @@ public class Move : ScriptableObject {
         {
             isPhantom = true;
         }
+    }
+
+    public virtual void SwitchAimer()
+    {
+        //TODO: does nothing?
     }
 
     public void SetAnimatorSpeed(float speed)

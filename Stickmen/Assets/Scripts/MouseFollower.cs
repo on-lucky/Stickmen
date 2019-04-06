@@ -7,8 +7,11 @@ public class MouseFollower : MonoBehaviour {
     public bool stick_to_ground = false;
     public bool stick_to_platform = false;
     public float snap_distance = 0f;
+    public GameObject stickman;
 
     private Vector3 Last_position;
+    private bool isOnGround = false;
+    private bool lookingRight = false;
 
     // Use this for initialization
     void Start () {
@@ -41,6 +44,21 @@ public class MouseFollower : MonoBehaviour {
         else
         {
             Last_position = transform.position;
+            isOnGround = false;
+        }
+
+        UpdateOrientation();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (stickman.GetComponent<NetworkPlayer>())
+            {
+                stickman.GetComponent<NetworkPlayer>().SwitchAimer();
+            }
+            if (stickman.GetComponent<Shade>())
+            {
+                stickman.GetComponent<Shade>().SwitchAimer();
+            }
         }
     }
 
@@ -48,6 +66,7 @@ public class MouseFollower : MonoBehaviour {
     {
         Vector3 starting_pos = transform.position;
         Platform platform = PlatformManager.instance.GetCurrentPlatform();
+        isOnGround = true;
 
         int layerMask = 1 << 11;
 
@@ -112,6 +131,34 @@ public class MouseFollower : MonoBehaviour {
         else
         {
             return 10f;
+        }
+    }
+
+    public bool GetIsOnGround()
+    {
+        return isOnGround;
+    }
+
+    private void UpdateOrientation()
+    {
+        if (stickman != null)
+        {
+            if (transform.position.x > stickman.transform.position.x)
+            {
+                if (!lookingRight)
+                {
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
+                    lookingRight = true;
+                }
+            }
+            else
+            {
+                if (lookingRight)
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+                    lookingRight = false;
+                }
+            }
         }
     }
 }

@@ -18,6 +18,8 @@ public class CameraController : MonoBehaviour {
     public float fieldLimitX = 10;
     public float fieldLimitY = 10;
 
+    public float moveSensibility = 2f;
+
     private Camera mainCam;
     private float mouseTimer = 0f;
     private bool isPressed = false;
@@ -79,7 +81,7 @@ public class CameraController : MonoBehaviour {
 
     private void UpdatePosition()
     {
-        transform.Translate(new Vector3(-Input.GetAxis("Mouse X") * UIcam.orthographicSize, -Input.GetAxis("Mouse Y") * UIcam.orthographicSize, 0));
+        transform.Translate(new Vector3(-Input.GetAxis("Mouse X") * UIcam.orthographicSize * moveSensibility, -Input.GetAxis("Mouse Y") * UIcam.orthographicSize * moveSensibility, 0));
 
         AdjustCamPos();
     }

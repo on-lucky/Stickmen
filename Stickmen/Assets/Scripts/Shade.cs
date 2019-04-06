@@ -6,6 +6,8 @@ public class Shade : MonoBehaviour {
 
     public StickmanProfile _profile;
 
+    private Move current_move;
+
     protected void OnMouseDown()
     {
         if (GameManager.instance.game_state == GameManager.GameState.Choosing)
@@ -43,5 +45,15 @@ public class Shade : MonoBehaviour {
     private void ToggleMenu()
     {
         GetComponentInChildren<IconSpawner>().ToggleIcons();
+    }
+
+    public void SetCurrentMove(Move m)
+    {
+        current_move = m;
+    }
+
+    public void SwitchAimer()
+    {
+        current_move.SwitchAimer();
     }
 }

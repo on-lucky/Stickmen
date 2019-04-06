@@ -14,4 +14,10 @@ MonoBehaviour:
   _category: Movement
   _moveName: Jump
   _icon: {fileID: 21300000, guid: 26beccf279ece4946aa30bdf5ba9c1e2, type: 3}
+  targets:
+  - {fileID: 1574274618347990, guid: b5997673efab8c1458e340b056cabb91, type: 2}
   arcAimer: {fileID: 1658401060802298, guid: 0908cd969abc509429337d02d30f99ac, type: 2}
+  speed_multiplier: 1
+  jumpDelay: 0.6
+  landDelay: 0.2
+  acceleration: 70

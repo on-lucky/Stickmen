@@ -6,10 +6,12 @@ using UnityEngine;
 public class HorizontalMovementMove : PureMovementMove
 {
     public float speed_multiplier = 1f;
-    public float acceleration_multiplier = 2f;
+    public float acceleration_multiplier = 0.1f;
 
     private float stickman_speed;
     private float stickman_acceleration;
+    private Vector3 lastPos;
+    private float current_speed = 0f;
 
     public void Init(GameObject _stickman, Vector3 startingPos, Vector3 goalPos)
     {
@@ -20,6 +22,8 @@ public class HorizontalMovementMove : PureMovementMove
         stickman_speed = GetProfile().GetStatValue(Stats.dexterity) * speed_multiplier;
         stickman_acceleration = GetProfile().GetStatValue(Stats.dexterity) * acceleration_multiplier;
         SetIsPhantom();
+        lastPos = stickman.transform.position;
+        current_speed = 0f;
     }
 
     public override void SetUp(GameObject _stickman)
@@ -27,7 +31,8 @@ public class HorizontalMovementMove : PureMovementMove
         base.SetUp(_stickman);
         stickman_speed = GetProfile().GetStatValue(Stats.dexterity) * speed_multiplier;
         stickman_acceleration = GetProfile().GetStatValue(Stats.dexterity) * acceleration_multiplier;
-        target.GetComponent<MouseFollower>().stick_to_platform = true;
+        lastPos = _stickman.transform.position;
+        current_speed = 0f;
     }
 
     public override void SpawnPhantom(MouseFollower target)
@@ -50,44 +55,44 @@ public class HorizontalMovementMove : PureMovementMove
         {
             if (goal_position.x - stickman.transform.position.x > 1)
             {
-                if (CheckSpeed())
+                if (CheckSpeed(deltaTime))
                 {
-                    Vector3 direction = new Vector3((Mathf.Cos(ground_angle) * stickman_acceleration), (Mathf.Sin(ground_angle) * stickman_acceleration), 0);
-                    stickman.GetComponent<Rigidbody>().AddForce(direction, ForceMode.Acceleration);
+                    Accelerate();
+                    
                 }
+                Vector3 direction = new Vector3((Mathf.Cos(ground_angle) * current_speed * deltaTime), (Mathf.Sin(ground_angle) * current_speed * deltaTime), 0);
+                stickman.transform.position = stickman.transform.position + direction;
             }
             else
             {
-                if (stickman.GetComponent<Rigidbody>().velocity.x > 0)
-                {
-                    Vector3 direction = new Vector3(-stickman_acceleration, 0, 0);
-                    stickman.GetComponent<Rigidbody>().AddForce(direction, ForceMode.Acceleration);
-                }
+                Decelerate();
+                Vector3 direction = new Vector3(current_speed * deltaTime, 0, 0);
+                stickman.transform.position = stickman.transform.position + direction;
+               
             }
         }
         if (stickman.transform.position.x > goal_position.x)
         {
             if (stickman.transform.position.x - goal_position.x > 1)
             {
-                if (CheckSpeed())
+                if (CheckSpeed(deltaTime))
                 {
-                    Vector3 direction = new Vector3(-(Mathf.Cos(ground_angle) * stickman_acceleration), -(Mathf.Sin(ground_angle) * stickman_acceleration), 0);
-                    stickman.GetComponent<Rigidbody>().AddForce(direction, ForceMode.Acceleration);
+                    Accelerate();
                 }
+                Vector3 direction = new Vector3(-(Mathf.Cos(ground_angle) * current_speed * deltaTime), -(Mathf.Sin(ground_angle) * current_speed * deltaTime), 0);
+                stickman.transform.position = stickman.transform.position + direction;
             }
             else
-            {
-                if (stickman.GetComponent<Rigidbody>().velocity.x < 0)
-                {
-                    Vector3 direction = new Vector3(stickman_acceleration, 0, 0);
-                    stickman.GetComponent<Rigidbody>().AddForce(direction, ForceMode.Acceleration);
-                }
+            { 
+                Decelerate();
+                Vector3 direction = new Vector3(-current_speed * deltaTime, 0, 0);
+                stickman.transform.position = stickman.transform.position + direction;
             }
         }
         if (stickman != null)
         {
-            animator.SetFloat("Speed", Mathf.Abs(stickman.GetComponent<Rigidbody>().velocity.x));
-            if (Mathf.Abs(stickman.GetComponent<Rigidbody>().velocity.x) < 0.1 && !IsAtStart())
+            animator.SetFloat("Speed", current_speed);
+            if (current_speed < 0.1 && !IsAtStart())
             {
                 animator.speed = 0;
                 ShadeMoveManager.instance.RemoveMove(this);
@@ -105,13 +110,34 @@ public class HorizontalMovementMove : PureMovementMove
         return isMoveOver;
     }
 
-    private bool CheckSpeed()
+    private void Accelerate()
     {
-        return (Mathf.Abs(stickman.GetComponent<Rigidbody>().velocity.x) < stickman_speed);
+        current_speed += stickman_acceleration;
+        Mathf.Clamp(current_speed, 0, stickman_speed);
+    }
+
+    private void Decelerate()
+    {
+        current_speed -= stickman_acceleration;
+        Mathf.Clamp(current_speed, 0, stickman_speed);
+    }
+
+    private bool CheckSpeed(float deltaTime)
+    {
+        //Vector3 newPos = stickman.transform.position;
+        //float speed = (newPos.x - lastPos.x) / deltaTime;
+        return (current_speed < stickman_speed);
+
     }
 
     private bool IsAtStart()
     {
         return (Mathf.Abs(stickman.transform.position.x - starting_position.x) < 0.1f);
+    }
+
+    protected override void SetTarget(int index, GameObject sMan)
+    {
+        base.SetTarget(index, sMan);
+        target.GetComponent<MouseFollower>().stick_to_platform = true;
     }
 }

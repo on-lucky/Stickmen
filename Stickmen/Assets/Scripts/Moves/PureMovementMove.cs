@@ -8,6 +8,7 @@ public class PureMovementMove : Move {
     protected Vector3 goal_position;
     protected Vector3 starting_position;
 
+    public GameObject[] targets;
     protected GameObject target;
 
     /*public PureMovementMove(GameObject _stickman, Vector3 startingPos, Vector3 goalPos)
@@ -25,8 +26,7 @@ public class PureMovementMove : Move {
         stickman.GetComponent<PhantomSpawner>().StartSpawning();
         SetIsPhantom();
 
-        target = Instantiate(GameManager.instance.ground_target, GameManager.instance.local_stickman.transform);
-        target.GetComponentInChildren<LightShafts>().m_Cameras[0] = Camera.main;
+        SetTarget(aimerIndex, _stickman);
     }
 
     public override void PhantomExecute()
@@ -62,5 +62,23 @@ public class PureMovementMove : Move {
         }
 
         //stickman.GetComponent<StickmanRunner>().RunTo(target.transform.position, GameManager.instance.local_shade.gameObject);
+    }
+
+    public override void SwitchAimer()
+    {
+        aimerIndex = (aimerIndex + 1) % targets.Length;
+        SetTarget(aimerIndex, stickman);
+    }
+
+    protected virtual void SetTarget(int index, GameObject sMan)
+    {
+        if(target != null)
+        {
+            Destroy(target);
+        }
+
+        target = Instantiate(targets[aimerIndex], GameManager.instance.local_stickman.transform);
+        target.GetComponentInChildren<LightShafts>().m_Cameras[0] = Camera.main;
+        target.GetComponent<MouseFollower>().stickman = sMan;
     }
 }
