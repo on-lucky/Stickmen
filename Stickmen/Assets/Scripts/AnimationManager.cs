@@ -16,7 +16,9 @@ public class AnimationManager : MonoBehaviour {
     private Animator animator;
 
     private float verticalSpeed = 0f;
+    private float horisontalSpeed = 0f;
     private Vector3 lastPos;
+    private bool lookingRight = true;
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +38,7 @@ public class AnimationManager : MonoBehaviour {
                 animator.SetFloat("VerticalSpeed", verticalSpeed);
                 break;
             case AnimState.Run:
+                animator.SetFloat("Speed", horisontalSpeed);
                 break;
         }
     }
@@ -66,5 +69,25 @@ public class AnimationManager : MonoBehaviour {
         Vector3 newPos = this.transform.position;
         verticalSpeed = (newPos.y - lastPos.y) / deltaTime;
         lastPos = newPos;
+    }
+
+    public void SetHSpeed(float hSpeed)
+    {
+        horisontalSpeed = hSpeed;
+    }
+
+    public float GetHSpeed()
+    {
+        return horisontalSpeed;
+    }
+
+    public void SetLookingRight(bool lRight)
+    {
+        lookingRight = lRight;
+    }
+
+    public bool GetLookingRight()
+    {
+        return lookingRight;
     }
 }

@@ -11,7 +11,7 @@ public class OrientationManager : MonoBehaviour {
         if (isRight)
         {
             isRight = false;
-            transform.Rotate(Vector3.up, 180);
+            TurnAnim();
         }
     }
 
@@ -20,7 +20,7 @@ public class OrientationManager : MonoBehaviour {
         if (!isRight)
         {
             isRight = true;
-            transform.Rotate(Vector3.up, 180);
+            TurnAnim();
         }
     }
 
@@ -34,5 +34,10 @@ public class OrientationManager : MonoBehaviour {
         {
             LookLeft();
         }
+    }
+
+    private void TurnAnim()
+    {
+        GetComponent<Animator>().SetTrigger("turn");
     }
 }

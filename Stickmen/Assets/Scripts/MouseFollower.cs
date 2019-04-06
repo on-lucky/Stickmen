@@ -6,10 +6,13 @@ public class MouseFollower : MonoBehaviour {
 
     public bool stick_to_ground = false;
     public bool stick_to_platform = false;
+    public bool border_mode = false;
     public float snap_distance = 0f;
+    public float border_dist = 1.5f;
     public GameObject stickman;
 
     private Vector3 Last_position;
+    private Vector3 Last_position_border;
     private bool isOnGround = false;
     private bool lookingRight = false;
 
@@ -75,8 +78,16 @@ public class MouseFollower : MonoBehaviour {
         {
             if (stick_to_platform)
             {
-                
-                if(Mathf.Abs(hit.point.y - Last_position.y) < 2 && hit.point.x < platform.x_max && hit.point.x > platform.x_min)
+                if(CheckBorders())
+                {
+                    Last_position_border = hit.point + new Vector3(0f, 0.02f, 0f);
+                }
+                if(border_mode)
+                {
+                    transform.position = Last_position_border;
+                    Last_position = transform.position;
+                }
+                else if(!border_mode && Mathf.Abs(hit.point.y - Last_position.y) < 2 && hit.point.x < platform.x_max && hit.point.x > platform.x_min)
                 {
                     transform.position = hit.point + new Vector3(0f, 0.02f, 0f);
                     Last_position = transform.position;
@@ -116,6 +127,29 @@ public class MouseFollower : MonoBehaviour {
         }
     }
 
+    private bool CheckBorders()
+    {
+        Platform platform = PlatformManager.instance.GetCurrentPlatform();
+        int layerMask = 1 << 11;
+
+        RaycastHit hit_right;
+        if (Physics.Raycast(transform.position + new Vector3(border_dist, 2, 0), transform.TransformDirection(Vector3.down), out hit_right, Mathf.Infinity, layerMask))
+        {
+            if (Mathf.Abs(hit_right.point.y - Last_position.y) < 2 && hit_right.point.x < platform.x_max && hit_right.point.x > platform.x_min)
+            {
+                RaycastHit hit_left;
+                if (Physics.Raycast(transform.position + new Vector3(-border_dist, 2, 0), transform.TransformDirection(Vector3.down), out hit_left, Mathf.Infinity, layerMask))
+                {
+                    if (Mathf.Abs(hit_left.point.y - Last_position.y) < 2 && hit_left.point.x < platform.x_max && hit_left.point.x > platform.x_min)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     private float DistanceToGround()
     {
         Vector3 starting_pos = transform.position;
@@ -137,6 +171,26 @@ public class MouseFollower : MonoBehaviour {
     public bool GetIsOnGround()
     {
         return isOnGround;
+    }
+
+    public bool GetLookingRight()
+    {
+        return lookingRight;
+    }
+
+    public void SetLookingRight(bool lRight)
+    {
+        lookingRight = lRight;
+    }
+
+    public Vector3 GetLastBorderPos()
+    {
+        return Last_position_border;
+    }
+
+    public void SetLastBorderPos(Vector3 pos)
+    {
+        Last_position_border = pos;
     }
 
     private void UpdateOrientation()

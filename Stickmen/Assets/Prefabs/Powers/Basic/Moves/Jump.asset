@@ -19,5 +19,6 @@ MonoBehaviour:
   arcAimer: {fileID: 1658401060802298, guid: 0908cd969abc509429337d02d30f99ac, type: 2}
   speed_multiplier: 1
   jumpDelay: 0.6
-  landDelay: 0.2
+  landDelay: 0.25
   acceleration: 70
+  animDelay: 0.3

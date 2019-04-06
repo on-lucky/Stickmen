@@ -18,4 +18,5 @@ MonoBehaviour:
   - {fileID: 1574274618347990, guid: b5997673efab8c1458e340b056cabb91, type: 2}
   - {fileID: 1363796867154136, guid: e58779761b5bb1c409ce2340df81583f, type: 2}
   speed_multiplier: 1.5
-  acceleration_multiplier: 0.1
+  acceleration_multiplier: 0.07
+  distForBreak: 2

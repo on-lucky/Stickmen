@@ -21,6 +21,8 @@ public class JumpMove : PureMovementMove {
     private float currentTime = 0f;
     private bool isLanding = false;
     private bool willLand = false;
+    public float animDelay = 0.3f;
+    private bool animTriggered = false;
 
     public override void SetUp(GameObject _stickman)
     {
@@ -29,6 +31,7 @@ public class JumpMove : PureMovementMove {
         target.GetComponent<MouseFollower>().snap_distance = 2f;
         currentTime = 0f;
         isLanding = false;
+        animTriggered = false;
 
         if (arcAimer != null)
         {
@@ -86,6 +89,12 @@ public class JumpMove : PureMovementMove {
             currentTime += deltaTime;
             if (!isLanding)
             {
+                if(!animTriggered && currentTime > animDelay)
+                {
+                    stickman.GetComponent<AnimationManager>().SwitchState(AnimState.Jump);
+                    animTriggered = true;
+                }
+
                 if (currentTime > jumpDelay)
                 {
 
@@ -179,6 +188,6 @@ public class JumpMove : PureMovementMove {
         aimer_instance.GetComponent<LineRenderer>().GetPositions(arc_positions);
         this.Init(stickman, stickman.transform.position, target.transform.position, arc_positions, arc_pts_count);
 
-        stickman.GetComponent<AnimationManager>().SwitchState(AnimState.Jump);
+        //stickman.GetComponent<AnimationManager>().SwitchState(AnimState.Jump);
     }
 }

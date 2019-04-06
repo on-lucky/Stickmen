@@ -21,4 +21,9 @@ public class AnimationEventHandler : MonoBehaviour {
         GameObject fs = Instantiate(footstep, foot_position, transform.rotation);
         Destroy(fs, 1f);
     }
+
+    public void Turn()
+    {
+        transform.Rotate(Vector3.up, 180);
+    }
 }

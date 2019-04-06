@@ -72,12 +72,26 @@ public class PureMovementMove : Move {
 
     protected virtual void SetTarget(int index, GameObject sMan)
     {
-        if(target != null)
+        if (target != null)
         {
-            Destroy(target);
-        }
+            // Gather info on the last target
+            Vector3 pos = target.transform.position;
+            Quaternion rot = target.transform.rotation;
+            bool lookingRight = target.GetComponent<MouseFollower>().GetLookingRight();
+            Vector3 borderPos = target.GetComponent<MouseFollower>().GetLastBorderPos();
 
-        target = Instantiate(targets[aimerIndex], GameManager.instance.local_stickman.transform);
+            Destroy(target);
+
+            //use last target info to spawn new target
+            target = Instantiate(targets[aimerIndex], pos, rot);
+            target.GetComponent<MouseFollower>().SetLookingRight(lookingRight);
+            target.GetComponent<MouseFollower>().SetLastBorderPos(borderPos);
+        }
+        else
+        {
+            target = Instantiate(targets[aimerIndex], GameManager.instance.local_stickman.transform);
+        }
+        
         target.GetComponentInChildren<LightShafts>().m_Cameras[0] = Camera.main;
         target.GetComponent<MouseFollower>().stickman = sMan;
     }

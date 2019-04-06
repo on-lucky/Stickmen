@@ -7,6 +7,7 @@ public class HorizontalMovementMove : PureMovementMove
 {
     public float speed_multiplier = 1f;
     public float acceleration_multiplier = 0.1f;
+    public float distForBreak = 1f;
 
     private float stickman_speed;
     private float stickman_acceleration;
@@ -23,7 +24,7 @@ public class HorizontalMovementMove : PureMovementMove
         stickman_acceleration = GetProfile().GetStatValue(Stats.dexterity) * acceleration_multiplier;
         SetIsPhantom();
         lastPos = stickman.transform.position;
-        current_speed = 0f;
+        SetInitialSpeed();
     }
 
     public override void SetUp(GameObject _stickman)
@@ -32,7 +33,7 @@ public class HorizontalMovementMove : PureMovementMove
         stickman_speed = GetProfile().GetStatValue(Stats.dexterity) * speed_multiplier;
         stickman_acceleration = GetProfile().GetStatValue(Stats.dexterity) * acceleration_multiplier;
         lastPos = _stickman.transform.position;
-        current_speed = 0f;
+        //SetInitialSpeed();
     }
 
     public override void SpawnPhantom(MouseFollower target)
@@ -47,18 +48,23 @@ public class HorizontalMovementMove : PureMovementMove
         phantomMove.PhantomExecute();
     }
 
+    public override void PhantomExecute()
+    {
+        base.PhantomExecute();
+        stickman.GetComponent<AnimationManager>().SwitchState(AnimState.Run);
+    }
+
     public override bool UpdateMethod(float deltaTime)
     {
         bool isMoveOver = false;
         float ground_angle = stickman.GetComponent<StickmanRunner>().ground_angle;
         if (stickman.transform.position.x < goal_position.x)
         {
-            if (goal_position.x - stickman.transform.position.x > 1)
+            if (aimerIndex == 1 || goal_position.x - stickman.transform.position.x > distForBreak)
             {
-                if (CheckSpeed(deltaTime))
+                if (CheckSpeed())
                 {
                     Accelerate();
-                    
                 }
                 Vector3 direction = new Vector3((Mathf.Cos(ground_angle) * current_speed * deltaTime), (Mathf.Sin(ground_angle) * current_speed * deltaTime), 0);
                 stickman.transform.position = stickman.transform.position + direction;
@@ -68,14 +74,23 @@ public class HorizontalMovementMove : PureMovementMove
                 Decelerate();
                 Vector3 direction = new Vector3(current_speed * deltaTime, 0, 0);
                 stickman.transform.position = stickman.transform.position + direction;
-               
+            }
+            if (stickman != null)
+            {
+                //animator.SetFloat("Speed", current_speed);
+                UpdateAnimator();
+                if (stickman.transform.position.x > goal_position.x || (current_speed == 0 && !IsAtStart()))
+                {
+                    StopRunning(true);
+                    isMoveOver = true;
+                }
             }
         }
         if (stickman.transform.position.x > goal_position.x)
         {
-            if (stickman.transform.position.x - goal_position.x > 1)
+            if (aimerIndex == 1 || stickman.transform.position.x - goal_position.x > distForBreak)
             {
-                if (CheckSpeed(deltaTime))
+                if (CheckSpeed())
                 {
                     Accelerate();
                 }
@@ -88,56 +103,114 @@ public class HorizontalMovementMove : PureMovementMove
                 Vector3 direction = new Vector3(-current_speed * deltaTime, 0, 0);
                 stickman.transform.position = stickman.transform.position + direction;
             }
-        }
-        if (stickman != null)
-        {
-            animator.SetFloat("Speed", current_speed);
-            if (current_speed < 0.1 && !IsAtStart())
+            if (stickman != null)
             {
-                animator.speed = 0;
-                ShadeMoveManager.instance.RemoveMove(this);
-                isMoveOver = true;
-                if (!isPhantom)
+                //animator.SetFloat("Speed", current_speed);
+                UpdateAnimator();
+                if (stickman.transform.position.x < goal_position.x || (current_speed == 0 && !IsAtStart()))
                 {
-                    GameManager.instance.InitChoosingMode();
-                }
-                else
-                {
-                    Destroy(stickman);
+                    StopRunning(false);
+                    isMoveOver = true;
                 }
             }
         }
+        
         return isMoveOver;
     }
 
     private void Accelerate()
     {
         current_speed += stickman_acceleration;
-        Mathf.Clamp(current_speed, 0, stickman_speed);
+        current_speed = Mathf.Clamp(current_speed, -1000, stickman_speed);
     }
 
     private void Decelerate()
     {
         current_speed -= stickman_acceleration;
-        Mathf.Clamp(current_speed, 0, stickman_speed);
+        current_speed = Mathf.Clamp(current_speed, 0, stickman_speed);
     }
 
-    private bool CheckSpeed(float deltaTime)
+    private bool CheckSpeed()
     {
-        //Vector3 newPos = stickman.transform.position;
-        //float speed = (newPos.x - lastPos.x) / deltaTime;
         return (current_speed < stickman_speed);
 
     }
 
     private bool IsAtStart()
     {
-        return (Mathf.Abs(stickman.transform.position.x - starting_position.x) < 0.1f);
+        return (Mathf.Abs(stickman.transform.position.x - starting_position.x) < 1.5f);
     }
 
     protected override void SetTarget(int index, GameObject sMan)
     {
         base.SetTarget(index, sMan);
         target.GetComponent<MouseFollower>().stick_to_platform = true;
+    }
+
+    private void UpdateAnimator()
+    {
+        stickman.GetComponent<AnimationManager>().SetHSpeed(current_speed);
+    }
+
+    public override void Execute(MouseFollower target)
+    {
+        base.Execute(target);
+        SetInitialSpeed();
+        Debug.Log("initial speed: " + current_speed);
+        stickman.GetComponent<AnimationManager>().SwitchState(AnimState.Run);
+    }
+
+    private void SetInitialSpeed()
+    {
+        if (stickman.GetComponent<AnimationManager>().aState == AnimState.Run)
+        {
+            if (goal_position.x > stickman.transform.position.x)
+            {
+                if (!stickman.GetComponent<AnimationManager>().GetLookingRight())
+                {
+                    current_speed = -stickman.GetComponent<AnimationManager>().GetHSpeed();
+                }
+                else
+                {
+                    current_speed = 0f;
+                }
+            }
+            else
+            {
+                if (stickman.GetComponent<AnimationManager>().GetLookingRight())
+                {
+                    current_speed = -stickman.GetComponent<AnimationManager>().GetHSpeed();
+                }
+                else
+                {
+                    current_speed = 0f;
+                }
+            }
+        }
+        else
+        {
+            current_speed = 0f;
+        }
+    }
+
+    private void StopRunning( bool goingRight)
+    {
+        stickman.transform.position = goal_position;
+        animator.speed = 0;
+        ShadeMoveManager.instance.RemoveMove(this);
+        if (!isPhantom)
+        {
+            GameManager.instance.InitChoosingMode();
+            if(aimerIndex == 0)
+            {
+                stickman.GetComponent<AnimationManager>().aState = AnimState.Iddle;
+                stickman.GetComponent<AnimationManager>().SetHSpeed(0);
+            }
+            stickman.GetComponent<AnimationManager>().SetLookingRight(goingRight);
+        }
+        else
+        {
+            Destroy(stickman);
+        }
     }
 }
