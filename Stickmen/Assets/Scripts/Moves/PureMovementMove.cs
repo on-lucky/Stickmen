@@ -33,14 +33,8 @@ public class PureMovementMove : Move {
     {
         //Debug.Log("going from: " + starting_position + " to :" + goal_position);
         animator.speed = 1;
-        if (starting_position.x < goal_position.x)
-        {
-            stickman.GetComponentInChildren<OrientationManager>().LookRight();
-        }
-        else
-        {
-            stickman.GetComponentInChildren<OrientationManager>().LookLeft();
-        }
+
+        stickman.GetComponentInChildren<OrientationManager>().LookTo(starting_position.x < goal_position.x);
     }
 
     public override void Execute(MouseFollower target)
@@ -52,14 +46,7 @@ public class PureMovementMove : Move {
         ShadeMoveManager.instance.AddMove(this);
 
         animator.speed = 1;
-        if (starting_position.x < goal_position.x)
-        {
-            stickman.GetComponentInChildren<OrientationManager>().LookRight();
-        }
-        else
-        {
-            stickman.GetComponentInChildren<OrientationManager>().LookLeft();
-        }
+        stickman.GetComponentInChildren<OrientationManager>().LookTo(starting_position.x < goal_position.x);
 
         //stickman.GetComponent<StickmanRunner>().RunTo(target.transform.position, GameManager.instance.local_shade.gameObject);
     }
@@ -79,6 +66,9 @@ public class PureMovementMove : Move {
             Quaternion rot = target.transform.rotation;
             bool lookingRight = target.GetComponent<MouseFollower>().GetLookingRight();
             Vector3 borderPos = target.GetComponent<MouseFollower>().GetLastBorderPos();
+            float snapDist = target.GetComponent<MouseFollower>().snap_distance;
+            bool onGround = target.GetComponent<MouseFollower>().GetIsOnGround();
+            bool switchable = target.GetComponent<MouseFollower>().Switchable;
 
             Destroy(target);
 
@@ -86,6 +76,9 @@ public class PureMovementMove : Move {
             target = Instantiate(targets[aimerIndex], pos, rot);
             target.GetComponent<MouseFollower>().SetLookingRight(lookingRight);
             target.GetComponent<MouseFollower>().SetLastBorderPos(borderPos);
+            target.GetComponent<MouseFollower>().snap_distance = snapDist;
+            target.GetComponent<MouseFollower>().SetIsOnGround(onGround);
+            target.GetComponent<MouseFollower>().Switchable = switchable;
         }
         else
         {

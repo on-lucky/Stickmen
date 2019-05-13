@@ -23,7 +23,7 @@ public class Shade : MonoBehaviour {
 
     public void Init()
     {
-        List<Move> moveList = IconOrganiser.MakeMoveList(_profile.powers);
+        List<Move> moveList = IconOrganiser.MakeMoveList(_profile.powers, AnimState.Iddle);
         _profile.SetMoveList(moveList);
         IconOrganiser.OrganiseIcons(moveList);
 
@@ -55,5 +55,14 @@ public class Shade : MonoBehaviour {
     public void SwitchAimer()
     {
         current_move.SwitchAimer();
+    }
+
+    public void UpdateMoveList()
+    {
+        Debug.Log(GetComponentInChildren<AnimationManager>().aState);
+        List<Move> moveList = IconOrganiser.MakeMoveList(_profile.powers, GetComponentInChildren<AnimationManager>().aState);
+        _profile.SetMoveList(moveList);
+        IconOrganiser.OrganiseIcons(moveList);
+        GetComponentInChildren<IconSpawner>().SpawnIcons(moveList);
     }
 }

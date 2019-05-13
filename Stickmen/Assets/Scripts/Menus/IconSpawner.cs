@@ -33,6 +33,11 @@ public class IconSpawner : MonoBehaviour {
     /// <param name="moveList">Move list containing the Move tree</param>
     public void SpawnIcons(List<Move> moveList)
     {
+        if (root_icon)
+        {
+            Destroy(root_icon);
+        }
+
         _moveList = moveList;
         List<Move> roots = GetRoots();
 

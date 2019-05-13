@@ -13,6 +13,7 @@ public class HorizontalMovementMove : PureMovementMove
     private float stickman_acceleration;
     private Vector3 lastPos;
     private float current_speed = 0f;
+    public float minSpeed = 0.4f;
 
     public void Init(GameObject _stickman, Vector3 startingPos, Vector3 goalPos)
     {
@@ -58,15 +59,17 @@ public class HorizontalMovementMove : PureMovementMove
     {
         bool isMoveOver = false;
         float ground_angle = stickman.GetComponent<StickmanRunner>().ground_angle;
+        Debug.Log(ground_angle);
         if (stickman.transform.position.x < goal_position.x)
         {
-            if (aimerIndex == 1 || goal_position.x - stickman.transform.position.x > distForBreak)
+            if (aimerIndex == 1 || (goal_position.x - stickman.transform.position.x > distForBreak || current_speed < minSpeed))
             {
                 if (CheckSpeed())
                 {
                     Accelerate();
                 }
                 Vector3 direction = new Vector3((Mathf.Cos(ground_angle) * current_speed * deltaTime), (Mathf.Sin(ground_angle) * current_speed * deltaTime), 0);
+                //Debug.Log(direction);
                 stickman.transform.position = stickman.transform.position + direction;
             }
             else
@@ -88,7 +91,7 @@ public class HorizontalMovementMove : PureMovementMove
         }
         if (stickman.transform.position.x > goal_position.x)
         {
-            if (aimerIndex == 1 || stickman.transform.position.x - goal_position.x > distForBreak)
+            if (aimerIndex == 1 || (stickman.transform.position.x - goal_position.x > distForBreak || current_speed < minSpeed))
             {
                 if (CheckSpeed())
                 {
@@ -127,7 +130,7 @@ public class HorizontalMovementMove : PureMovementMove
     private void Decelerate()
     {
         current_speed -= stickman_acceleration;
-        current_speed = Mathf.Clamp(current_speed, 0, stickman_speed);
+        current_speed = Mathf.Clamp(current_speed, minSpeed, stickman_speed);
     }
 
     private bool CheckSpeed()
@@ -155,6 +158,7 @@ public class HorizontalMovementMove : PureMovementMove
     public override void Execute(MouseFollower target)
     {
         base.Execute(target);
+        
         SetInitialSpeed();
         Debug.Log("initial speed: " + current_speed);
         stickman.GetComponent<AnimationManager>().SwitchState(AnimState.Run);
@@ -200,13 +204,13 @@ public class HorizontalMovementMove : PureMovementMove
         ShadeMoveManager.instance.RemoveMove(this);
         if (!isPhantom)
         {
-            GameManager.instance.InitChoosingMode();
             if(aimerIndex == 0)
             {
-                stickman.GetComponent<AnimationManager>().aState = AnimState.Iddle;
+                stickman.GetComponent<AnimationManager>().SwitchState(AnimState.Iddle);
                 stickman.GetComponent<AnimationManager>().SetHSpeed(0);
             }
             stickman.GetComponent<AnimationManager>().SetLookingRight(goingRight);
+            GameManager.instance.InitChoosingMode();
         }
         else
         {

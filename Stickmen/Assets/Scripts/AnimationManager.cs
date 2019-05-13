@@ -4,9 +4,10 @@ using UnityEngine;
 
 public enum AnimState
 {
-    Iddle,
-    Jump,
-    Run
+    All,
+    Iddle,      // stateIndex = 0 in the animator
+    Jump,       // stateIndex = 1 in the animator
+    Run         // stateIndex = 2 in the animator
 }
 
 public class AnimationManager : MonoBehaviour {
@@ -55,11 +56,13 @@ public class AnimationManager : MonoBehaviour {
         switch (aState)
         {
             case AnimState.Iddle:
+                animator.SetInteger("stateIndex", 0);
                 break;
             case AnimState.Jump:
                 animator.SetTrigger("Jump");
                 break;
             case AnimState.Run:
+                animator.SetInteger("stateIndex", 2);
                 break;
         }
     }

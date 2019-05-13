@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a9f279949d9ead46ab2f363e2f7aa73, type: 3}
+  m_Name: Running_Jump
+  m_EditorClassIdentifier: 
+  _category: Movement
+  _moveName: Jump
+  _icon: {fileID: 21300000, guid: 9d4c3b590037a8149a9014a87fcc8eb9, type: 3}
+  animState: 3
+  targets:
+  - {fileID: 1574274618347990, guid: b5997673efab8c1458e340b056cabb91, type: 2}
+  - {fileID: 1961129448907322, guid: c48396d4c4d13b142b76eaf1a916d5f7, type: 2}
+  arcAimer: {fileID: 1000808898903930, guid: 4050db19d393e9e4cae6c92a27cfaed1, type: 2}
+  speed_multiplier: 1
+  jumpDelay: 0
+  landDelay: 0.4
+  acceleration: 100
+  animDelay: 0

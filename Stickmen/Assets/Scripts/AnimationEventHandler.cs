@@ -5,6 +5,7 @@ using UnityEngine;
 public class AnimationEventHandler : MonoBehaviour {
 
     public GameObject footstep;
+    public ParticleSystem[] breakDusts;
 
 	public void FootStep()
     {
@@ -25,5 +26,13 @@ public class AnimationEventHandler : MonoBehaviour {
     public void Turn()
     {
         transform.Rotate(Vector3.up, 180);
+    }
+
+    public void BreakDust()
+    {
+        foreach(ParticleSystem dust in breakDusts)
+        {
+            dust.Play();
+        }
     }
 }

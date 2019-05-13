@@ -9,6 +9,8 @@ public class JumpMove : PureMovementMove {
     public float speed_multiplier = 1f;
     public float jumpDelay = 1f;
     public float landDelay = 1f;
+    public float acceleration = 200f;
+    public float animDelay = 0.3f;
 
     private Vector3[] arc_positions;
     private int arc_pts_count;
@@ -17,18 +19,20 @@ public class JumpMove : PureMovementMove {
     private float current_pos_x;
     private float jump_distance;
     private float jump_height;
-    public float acceleration = 200f;
     private float currentTime = 0f;
     private bool isLanding = false;
-    private bool willLand = false;
-    public float animDelay = 0.3f;
+    private bool willLand = false;   
     private bool animTriggered = false;
+
+    private const float TURN_DELAY = 0.35f;
+    private float JUMP_DELAY = 0.6f;
 
     public override void SetUp(GameObject _stickman)
     {
         base.SetUp(_stickman);
         target.GetComponent<MouseFollower>().stick_to_platform = false;
         target.GetComponent<MouseFollower>().snap_distance = 2f;
+        target.GetComponent<MouseFollower>().Switchable = false;
         currentTime = 0f;
         isLanding = false;
         animTriggered = false;
@@ -41,6 +45,8 @@ public class JumpMove : PureMovementMove {
             aimer_instance.GetComponent<LineRenderer>().GetPositions(arc_positions);
             aimer_instance.GetComponent<ArcAimer>().objToFollow = target;
         }
+
+        JUMP_DELAY = jumpDelay;
     }
 
     public void Init(GameObject _stickman, Vector3 startingPos, Vector3 goalPos, Vector3[] arc_pos, int pts_count)
@@ -147,6 +153,8 @@ public class JumpMove : PureMovementMove {
                     isMoveOver = true;
                     if (!isPhantom)
                     {
+                        stickman.GetComponent<AnimationManager>().SwitchState(AnimState.Iddle);
+                        stickman.GetComponent<AnimationManager>().SetHSpeed(0);
                         GameManager.instance.InitChoosingMode();
                     }
                     else
@@ -180,7 +188,19 @@ public class JumpMove : PureMovementMove {
 
     public override void Execute(MouseFollower target)
     {
+        bool wasLookingRight = stickman.GetComponentInChildren<OrientationManager>().isRight;
         base.Execute(target);
+        bool isLookingRight = stickman.GetComponentInChildren<OrientationManager>().isRight;
+        if (wasLookingRight == isLookingRight)
+        {
+            jumpDelay = JUMP_DELAY;
+            animDelay = 0f;
+        }
+        else
+        {
+            animDelay = TURN_DELAY;
+            jumpDelay = JUMP_DELAY + TURN_DELAY;
+        }
 
         willLand = target.GetComponent<MouseFollower>().GetIsOnGround();
         Destroy(aimer_instance);
@@ -189,5 +209,14 @@ public class JumpMove : PureMovementMove {
         this.Init(stickman, stickman.transform.position, target.transform.position, arc_positions, arc_pts_count);
 
         //stickman.GetComponent<AnimationManager>().SwitchState(AnimState.Jump);
+    }
+
+    protected override void SetTarget(int index, GameObject sMan)
+    {
+        base.SetTarget(index, sMan);
+        if (aimer_instance)
+        {
+            aimer_instance.GetComponent<ArcAimer>().objToFollow = target;
+        }
     }
 }

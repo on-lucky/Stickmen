@@ -116,6 +116,7 @@ public class NetworkPlayer : MonoBehaviour {
 
     public void ShowIcons()
     {
+        _shade.UpdateMoveList();
         _shade.GetComponentInChildren<IconSpawner>().ShowIcons(true);
     }
 

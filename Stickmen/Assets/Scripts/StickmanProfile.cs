@@ -55,8 +55,10 @@ public class StickmanProfile {
     {
         foreach(Move move in _moveList)
         {
-            if(move.name == move_name)
+            Debug.Log(move._moveName);
+            if(move._moveName == move_name)
             {
+                Debug.Log("FOUND IT");
                 return move;
             }
         }

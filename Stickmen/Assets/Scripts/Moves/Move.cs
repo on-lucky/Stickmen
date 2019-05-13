@@ -4,18 +4,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "new move", menuName = "move")]
 public class Move : ScriptableObject {
 
-    public string _category;        // Category name used to classify this Move
-    public string _moveName;        // Name of this Move
-    public Sprite _icon;            // Sprite containing the picture of this Move
+    public string _category;                        // Category name used to classify this Move
+    public string _moveName;                        // Name of this Move
+    public Sprite _icon;                            // Sprite containing the picture of this Move
+    public AnimState animState = AnimState.All;   // Animation state from which the move should be accessible 
 
-    private Move _parent;           // Parent Move of this Move
-    private List<Move> _childMoves; // List containing the children Moves of this Move
-
-    protected GameObject stickman;  // The GameObject that should execute the Move 
-    protected Animator animator;    // animator animating the Move
-    protected bool isPhantom;       // if the object that is executing the move is a phantom
-
-    protected int aimerIndex = 0;   // index of the aimer of the move
+    private Move _parent;                           // Parent Move of this Move
+    private List<Move> _childMoves;                 // List containing the children Moves of this Move
+    protected GameObject stickman;                  // The GameObject that should execute the Move 
+    protected Animator animator;                    // animator animating the Move
+    protected bool isPhantom;                       // if the object that is executing the move is a phantom
+    protected int aimerIndex = 0;                   // index of the aimer of the move
 
     /// <summary>
     /// Verifies if the Move has a category

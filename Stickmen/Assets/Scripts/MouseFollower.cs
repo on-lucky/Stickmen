@@ -10,10 +10,11 @@ public class MouseFollower : MonoBehaviour {
     public float snap_distance = 0f;
     public float border_dist = 1.5f;
     public GameObject stickman;
+    public bool Switchable = true;
 
     private Vector3 Last_position;
     private Vector3 Last_position_border;
-    private bool isOnGround = false;
+    private bool isOnGround = true;
     private bool lookingRight = false;
 
     // Use this for initialization
@@ -47,12 +48,12 @@ public class MouseFollower : MonoBehaviour {
         else
         {
             Last_position = transform.position;
-            isOnGround = false;
+            SwitchGroundState(false);
         }
 
         UpdateOrientation();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && Switchable)
         {
             if (stickman.GetComponent<NetworkPlayer>())
             {
@@ -69,7 +70,7 @@ public class MouseFollower : MonoBehaviour {
     {
         Vector3 starting_pos = transform.position;
         Platform platform = PlatformManager.instance.GetCurrentPlatform();
-        isOnGround = true;
+        SwitchGroundState(true);
 
         int layerMask = 1 << 11;
 
@@ -173,6 +174,11 @@ public class MouseFollower : MonoBehaviour {
         return isOnGround;
     }
 
+    public void SetIsOnGround(bool onGround)
+    {
+        isOnGround = onGround;
+    }
+
     public bool GetLookingRight()
     {
         return lookingRight;
@@ -212,6 +218,22 @@ public class MouseFollower : MonoBehaviour {
                     transform.rotation = Quaternion.Euler(0, 0, 0);
                     lookingRight = false;
                 }
+            }
+        }
+    }
+
+    private void SwitchGroundState(bool onGround)
+    {
+        if(isOnGround != onGround)
+        {
+            isOnGround = onGround;
+            if (stickman.GetComponent<NetworkPlayer>())
+            {
+                stickman.GetComponent<NetworkPlayer>().SwitchAimer();
+            }
+            if (stickman.GetComponent<Shade>())
+            {
+                stickman.GetComponent<Shade>().SwitchAimer();
             }
         }
     }

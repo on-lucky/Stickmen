@@ -112,14 +112,19 @@ public class ArcAimer : MonoBehaviour {
             float b = 2 * (i * (currentHeight - y) + x * (j - currentHeight));
             float c = (Mathf.Pow(i, 2) * (y - currentHeight)) + (Mathf.Pow(x, 2) * (currentHeight - j));
 
-            if ((Mathf.Pow(b, 2) - (4 * a * c)) >= 0)
+            if(a == 0)
+            {
+                float h = (i + x) / 2;
+                currentLenght = Mathf.Clamp(h, x - maxLenght, x + maxLenght);
+            }
+            else if ((Mathf.Pow(b, 2) - (4 * a * c)) >= 0)
             {
                 float h = (-b + Mathf.Sqrt(Mathf.Pow(b, 2) - (4 * a * c))) / (2 * a);
                 if (!VerifyH(h))
                 {
                     h = (-b - Mathf.Sqrt(Mathf.Pow(b, 2) - (4 * a * c))) / (2 * a);
-                }
 
+                }
                 currentLenght = Mathf.Clamp(h, x - maxLenght, x + maxLenght);
             }
 

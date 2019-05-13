@@ -26,14 +26,17 @@ public class IconOrganiser : ScriptableObject {
     /// </summary>
     /// <param name="powerList">the initial powerList to convert</param>
     /// <returns></returns>
-    static public List<Move> MakeMoveList(List<Power> powerList)
+    static public List<Move> MakeMoveList(List<Power> powerList, AnimState state)
     {
         List<Move> moveList = new List<Move>();
         foreach (Power pow in powerList)
         {
             foreach (Move mov in pow.moveList)
             {
-                moveList.Add(mov);
+                if (mov.animState == state || mov.animState == AnimState.All)
+                {
+                    moveList.Add(mov);
+                }
             }
         }
         return moveList;

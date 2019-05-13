@@ -862,7 +862,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1788534186884572}
-  m_LocalRotation: {x: -0.109834895, y: 0.57384187, z: 0.59041464, w: 0.5568236}
+  m_LocalRotation: {x: -0.10983487, y: 0.5738418, z: 0.5904146, w: 0.55682355}
   m_LocalPosition: {x: -3.120894, y: -1.2541897, z: 0}
   m_LocalScale: {x: 1.0000001, y: 1.0000002, z: 1.0000002}
   m_Children:
@@ -1157,7 +1157,7 @@ MonoBehaviour:
     resilience: 4
     expertise: 4
     endurance: 4
-  shadeTemplate: {fileID: 114717643183985710, guid: 9871ff411aa264941bd85f5a32a1904c,
+  shadeTemplate: {fileID: 114885826832096160, guid: 9871ff411aa264941bd85f5a32a1904c,
     type: 2}
 --- !u!119 &119937440539152968
 Projector:
